@@ -47,7 +47,7 @@ public class HomeController implements Initializable {
     }
 
     bookPieChart.setData(pieChartData);
-    totalBooksLabel.setText("Tổng số sách: " + totalBooks);
+    totalBooksLabel.setText("Thống kê số lượng sách : " + totalBooks);
 }
 }
 
