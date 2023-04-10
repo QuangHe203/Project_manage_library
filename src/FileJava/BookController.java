@@ -10,12 +10,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 public class BookController implements Initializable {
@@ -85,5 +89,77 @@ public class BookController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    
+    @FXML
+    private TextField idTextField;
+    
+    @FXML
+    private TextField titleTextField;
+    
+    @FXML
+    private TextField authorTextField;
+    
+    @FXML
+    private TextField publisherTextField;
+    
+    @FXML
+    private ChoiceBox<String> genreComboBox;
+    
+    @FXML
+    private TextField publishDateTextField;
 
+    private ObservableList<Book> bookList = FXCollections.observableArrayList();
+    
+    @FXML
+    public void initialize() {
+        // Initialize genreComboBox with options
+        genreComboBox.getItems().addAll("Fiction", "Non-Fiction", "Romance", "Mystery", "Thriller", "Sci-Fi", "Biography");
+        
+        // Initialize columns in bookTableView
+        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        titleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
+        authorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuthor()));
+        publisherColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPublisher()));
+        publicationYearColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPublicationYear()));
+        genreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenre()));
+        locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLocation()));
+        statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+        
+        // Get bookList from database or create a new one
+        bookList = FXCollections.observableArrayList();
+        tableView.setItems(bookList);
+    }
+    
+    public ObservableList<Book> searchBooks(String id, String title, String author, String publisher, String genre, Integer publishDate) {
+        ObservableList<Book> result = FXCollections.observableArrayList();
+        for (Book book : App.books) {
+            if (book.getId().contains(id)
+                    && book.getTitle().contains(title)
+                    && book.getAuthor().contains(author)
+                    && book.getPublisher().contains(publisher)
+                    && book.getGenre().equals(genre)
+                    && (publishDate == null || book.getPublicationYear() == publishDate)) {
+                result.add(book);
+            }
+        }
+        return result;
+    }
+    
+    @FXML
+    void searchBooks(ActionEvent event) {
+        // Get search criteria from text fields and combo box
+        String id = idTextField.getText();
+        String title = titleTextField.getText();
+        String author = authorTextField.getText();
+        String publisher = publisherTextField.getText();
+        String genre = genreComboBox.getValue();
+        Integer publishDate = !publishDateTextField.getText().isEmpty() ? Integer.parseInt(publishDateTextField.getText()) : null;
+        
+        // Call a method to search for books in database using search criteria
+        ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishDate));
+        
+        // Update bookList with searchedBooks and display in bookTableView
+        bookList.clear();
+        bookList.addAll(searchedBooks);
+    }
 }
