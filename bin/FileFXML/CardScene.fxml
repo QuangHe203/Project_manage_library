@@ -24,16 +24,16 @@
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/main.png" />
+                        <Image url="@../Images/Home.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="30.0" prefWidth="100.0" text="Sách" />
-            <Button fx:id="butto" mnemonicParsing="false" onAction="#SwitchToBook" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" onAction="#SwitchToBook" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/book.png" />
+                        <Image url="@../Images/Book.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -42,7 +42,7 @@
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/reader.png" />
+                        <Image url="@../Images/Borrower.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -51,7 +51,7 @@
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/borrow.png" />
+                        <Image url="@../Images/Card.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -60,7 +60,7 @@
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/giveBack.png" />
+                        <Image url="@../Images/GiveBack.png" />
                      </image>
                   </ImageView>
                </graphic>
