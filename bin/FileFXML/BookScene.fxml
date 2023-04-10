@@ -122,16 +122,16 @@
                   <Button mnemonicParsing="false" style="-fx-background-color: #007FFF;" text="Tra cứu" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <TableView layoutY="299.0" prefHeight="323.0" prefWidth="766.0">
+            <TableView layoutY="299.0" prefHeight="323.0" prefWidth="766.0" fx:id="tableView">
               <columns>
-                <TableColumn prefWidth="19.199981689453125" text="ID" />
-                <TableColumn prefWidth="113.60000610351562" text="Tiêu đề" />
-                  <TableColumn prefWidth="82.4000244140625" text="Tác giả" />
-                  <TableColumn prefWidth="132.0" text="Nhà xuất bản" />
-                  <TableColumn minWidth="0.0" prefWidth="122.39999389648438" text="Năm xuất bản" />
-                  <TableColumn prefWidth="103.20001220703125" text="Thể loại" />
-                  <TableColumn prefWidth="74.4000244140625" text="Tình trạng" />
-                  <TableColumn prefWidth="118.39996337890625" text="Vị trí" />
+                <TableColumn prefWidth="19.199981689453125" text="ID" fx:id="idColumn"/>
+                <TableColumn prefWidth="113.60000610351562" text="Tiêu đề" fx:id="titleColumn"/>
+                  <TableColumn prefWidth="82.4000244140625" text="Tác giả" fx:id="authorColumn"/>
+                  <TableColumn prefWidth="132.0" text="Nhà xuất bản" fx:id="publisherColumn" fx:id="publisherColumn"/>
+                  <TableColumn minWidth="0.0" prefWidth="122.39999389648438" text="Năm xuất bản" fx:id="publicationYearColumn"/>
+                  <TableColumn prefWidth="103.20001220703125" text="Thể loại" fx:id="genreColumn"/>
+                  <TableColumn prefWidth="74.4000244140625" text="Tình trạng" fx:id="locationColumn"/>
+                  <TableColumn prefWidth="118.39996337890625" text="vị trí" fx:id="statusColumn"/>
               </columns>
             </TableView>
          </children></AnchorPane>
