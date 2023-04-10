@@ -12,7 +12,10 @@ import javafx.stage.Stage;
 
 
 public class MainController {
+    @FXML
     private Stage stage;
+
+    @FXML
     private Scene scene;
 
     @FXML
