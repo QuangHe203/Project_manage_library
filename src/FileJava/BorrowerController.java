@@ -10,8 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
-public class BookController {
-    
+public class BorrowerController {
     @FXML
     private Stage stage;
 
@@ -28,8 +27,8 @@ public class BookController {
     }
 
     @FXML
-    public void switchToBorrower(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/BorrowerScene.fxml"));
+    public void switchToBook(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/BookScene.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
