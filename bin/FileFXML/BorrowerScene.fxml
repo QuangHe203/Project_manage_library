@@ -17,52 +17,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="905.0" style="-fx-background-color: #8bc6d3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="905.0" style="-fx-background-color: #8bc6d3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Java.BorrowerController">
    <children>
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
             <Label prefHeight="18.0" prefWidth="101.0" text="Trang chủ" />
-            <Button fx:id="buttonMain" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
+            <Button fx:id="buttonMain" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToHome">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/main.png" />
+                        <Image url="@../Images/Home.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="30.0" prefWidth="100.0" text="Sách" />
-            <Button fx:id="butto" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
+            <Button fx:id="butto" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBook">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/book.png" />
+                        <Image url="@../Images/Book.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Độc giả" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBorrower">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/reader.png" />
+                        <Image url="@../Images/Borrower.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Mượn sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToCard">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/borrow.png" />
+                        <Image url="@../Images/Card.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Trả sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToGiveBack">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/giveBack.png" />
+                        <Image url="@../Images/GiveBack.png" />
                      </image>
                   </ImageView>
                </graphic>
