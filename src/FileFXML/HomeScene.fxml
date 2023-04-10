@@ -53,7 +53,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Trả sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchGiveBack">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToGiveBack">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
