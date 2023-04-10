@@ -16,9 +16,6 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 
 public class BookController implements Initializable {
@@ -89,67 +86,4 @@ public class BookController implements Initializable {
         stage.show();
     }
 
-    public TableView<Book> getBookTable() {
-        return bookTable;
-    }
-
-    public void setBookTable(TableView<Book> bookTable) {
-        this.bookTable = bookTable;
-    }
-
-    public TableColumn<Book, Integer> getIdColumn() {
-        return idColumn;
-    }
-
-    public void setIdColumn(TableColumn<Book, Integer> idColumn) {
-        this.idColumn = idColumn;
-    }
-
-    public TableColumn<Book, String> getTitleColumn() {
-        return titleColumn;
-    }
-
-    public void setTitleColumn(TableColumn<Book, String> titleColumn) {
-        this.titleColumn = titleColumn;
-    }
-
-    public TableColumn<Book, String> getAuthorColumn() {
-        return authorColumn;
-    }
-
-    public void setAuthorColumn(TableColumn<Book, String> authorColumn) {
-        this.authorColumn = authorColumn;
-    }
-
-    public TableColumn<Book, String> getGenreColumn() {
-        return genreColumn;
-    }
-
-    public void setGenreColumn(TableColumn<Book, String> genreColumn) {
-        this.genreColumn = genreColumn;
-    }
-
-    public TableColumn<Book, Integer> getQuantityColumn() {
-        return quantityColumn;
-    }
-
-    public void setQuantityColumn(TableColumn<Book, Integer> quantityColumn) {
-        this.quantityColumn = quantityColumn;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public Scene getScene() {
-        return scene;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
 }
