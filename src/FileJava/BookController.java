@@ -45,7 +45,13 @@ public class BookController implements Initializable {
         locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLocation()));
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
 
-    tableView.setItems(App.books);
+        //Khởi tạo giá trị cho tableView
+        tableView.setItems(App.books);
+
+        genreComboBox.getItems().addAll("Fantasy", "Historical Fiction", "Romantic Fiction", "Gothic Fiction", "Thriller", "Mystery");
+        genreComboBox.setValue("Fantasy");
+        //Tạo một bookList mới dành cho việc hiển thị những sách được tìm
+        bookList = FXCollections.observableArrayList();
     }
 
     @FXML
@@ -110,26 +116,6 @@ public class BookController implements Initializable {
 
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
     
-    @FXML
-    public void initialize() {
-        // Initialize genreComboBox with options
-        genreComboBox.getItems().addAll("Fiction", "Non-Fiction", "Romance", "Mystery", "Thriller", "Sci-Fi", "Biography");
-        
-        // Initialize columns in bookTableView
-        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-        titleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
-        authorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuthor()));
-        publisherColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPublisher()));
-        publicationYearColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPublicationYear()));
-        genreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenre()));
-        locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLocation()));
-        statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
-        
-        // Get bookList from database or create a new one
-        bookList = FXCollections.observableArrayList();
-        tableView.setItems(bookList);
-    }
-    
     public ObservableList<Book> searchBooks(String id, String title, String author, String publisher, String genre, Integer publishDate) {
         ObservableList<Book> result = FXCollections.observableArrayList();
         for (Book book : App.books) {
@@ -147,7 +133,7 @@ public class BookController implements Initializable {
     
     @FXML
     void searchBooks(ActionEvent event) {
-        // Get search criteria from text fields and combo box
+
         String id = idTextField.getText();
         String title = titleTextField.getText();
         String author = authorTextField.getText();
@@ -157,9 +143,11 @@ public class BookController implements Initializable {
         
         // Call a method to search for books in database using search criteria
         ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishDate));
-        
+       
+
         // Update bookList with searchedBooks and display in bookTableView
         bookList.clear();
         bookList.addAll(searchedBooks);
+        tableView.setItems(bookList);
     }
 }

@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -113,13 +112,13 @@
                   <Label text="Nhà xuất bản:" GridPane.rowIndex="3" />
                   <Label text="Năm xuất bản:" GridPane.columnIndex="3" />
                   <Label text="Thể loại:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: #007FFF;" text="Tra cứu" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <TextField GridPane.columnIndex="1" fx:id="idTextField"/>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="titleTextField"/>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="authorTextField"/>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="publisherTextField"/>
+                  <Button mnemonicParsing="false" style="-fx-background-color: #007FFF;" text="Tra cứu" GridPane.columnIndex="4" GridPane.rowIndex="2" onAction="#searchBooks"/>
+                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" fx:id="genreComboBox" />
+                  <TextField GridPane.columnIndex="4" fx:id="publishDateTextField"/>
                </children>
             </GridPane>
             <TableView fx:id="tableView" layoutY="299.0" prefHeight="323.0" prefWidth="766.0">
