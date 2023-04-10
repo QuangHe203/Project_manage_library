@@ -15,6 +15,18 @@ public class Book {
 
     }
 
+    public Book(String id, String title, String author, String publisher, int publicationYear, int quantity, String genre, String status, String location) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publicationYear = publicationYear;
+        this.quantity = quantity;
+        this.genre = genre;
+        this.status = status;
+        this.location = location;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
