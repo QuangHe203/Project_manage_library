@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Borrower {
     private String id;  //ID người mượn
-    private String fullName;    //Tên gnuowfi mượn
+    private String fullName;    //Tên người mượn
     private String phoneNumber; //Số điện thoại người mượn
     private String email;   //Email người mượn
     private LocalDate dateOfBirth;  //Ngày tháng năm sinh
