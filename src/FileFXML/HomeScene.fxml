@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="905.0" style="-fx-background-color: #8bc6d3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="905.0" style="-fx-background-color: #8bc6d3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FileJava.HomeController">
    <children>
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
@@ -96,7 +96,7 @@
             </AnchorPane>
             <AnchorPane layoutX="526.0" layoutY="14.0" prefHeight="601.0" prefWidth="234.0">
                <children>
-                  <Label layoutY="-6.0" prefHeight="30.0" prefWidth="234.0" style="-fx-background-color: #FFFFFF;" text="Sách được mượn nhiều nhất" />
+                  <Label layoutY="-1.0" prefHeight="30.0" prefWidth="234.0" style="-fx-background-color: #FFFFFF;" text="Sách được mượn nhiều nhất" />
                </children>
             </AnchorPane>
          </children></AnchorPane>

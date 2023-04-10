@@ -79,7 +79,7 @@ public class Book {
         this.genre = genre;
     }
 
-    public String setGenre() {
+    public String getGenre() {
         return genre;
     }
 
