@@ -12,12 +12,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="905.0" style="-fx-background-color: #8bc6d3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FileJava.HomeController">
+<AnchorPane fx:controller="FileJava.HomeController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="905.0" style="-fx-background-color: #8bc6d3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
             <Label prefHeight="18.0" prefWidth="101.0" text="Trang chủ" />
-            <Button fx:id="buttonMain" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -26,7 +26,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="30.0" prefWidth="100.0" text="Sách" />
-            <Button fx:id="butto" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -78,7 +78,7 @@
             <AnchorPane prefHeight="297.0" prefWidth="500.0">
                <children>
                   <Label layoutY="14.0" prefHeight="30.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF;" text="Thống kê lượng sách" />
-                  <PieChart layoutY="55.0" prefHeight="222.0" prefWidth="307.0" />
+                  <PieChart fx:id="bookPieChart" layoutY="55.0" prefHeight="222.0" prefWidth="307.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutY="326.0" prefHeight="298.0" prefWidth="500.0">
