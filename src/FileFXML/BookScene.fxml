@@ -22,7 +22,7 @@
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
             <Label prefHeight="18.0" prefWidth="101.0" text="Trang chủ" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToHome">
+            <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,7 +40,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Độc giả" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBorrower">
+            <Button mnemonicParsing="false" onAction="#switchToBorrower" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +49,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Mượn sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToCard">
+            <Button mnemonicParsing="false" onAction="#switchToCard" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Trả sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToGiveBack">
+            <Button mnemonicParsing="false" onAction="#switchToGiveBack" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -122,16 +122,16 @@
                   <Button mnemonicParsing="false" style="-fx-background-color: #007FFF;" text="Tra cứu" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <TableView layoutY="299.0" prefHeight="323.0" prefWidth="766.0" fx:id="tableView">
+            <TableView fx:id="tableView" layoutY="299.0" prefHeight="323.0" prefWidth="766.0">
               <columns>
-                <TableColumn prefWidth="19.199981689453125" text="ID" fx:id="idColumn"/>
-                <TableColumn prefWidth="113.60000610351562" text="Tiêu đề" fx:id="titleColumn"/>
-                  <TableColumn prefWidth="82.4000244140625" text="Tác giả" fx:id="authorColumn"/>
-                  <TableColumn prefWidth="132.0" text="Nhà xuất bản" fx:id="publisherColumn" fx:id="publisherColumn"/>
-                  <TableColumn minWidth="0.0" prefWidth="122.39999389648438" text="Năm xuất bản" fx:id="publicationYearColumn"/>
-                  <TableColumn prefWidth="103.20001220703125" text="Thể loại" fx:id="genreColumn"/>
-                  <TableColumn prefWidth="74.4000244140625" text="Tình trạng" fx:id="locationColumn"/>
-                  <TableColumn prefWidth="118.39996337890625" text="vị trí" fx:id="statusColumn"/>
+                <TableColumn fx:id="idColumn" prefWidth="33.600006103515625" text="ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="133.5999755859375" text="Tiêu đề" />
+                  <TableColumn fx:id="authorColumn" prefWidth="87.99993896484375" text="Tác giả" />
+                  <TableColumn fx:id="publisherColumn" prefWidth="130.39999389648438" text="Nhà xuất bản" />
+                  <TableColumn fx:id="publicationYearColumn" minWidth="0.0" prefWidth="88.0" text="Năm xuất bản" />
+                  <TableColumn fx:id="genreColumn" prefWidth="103.20001220703125" text="Thể loại" />
+                  <TableColumn fx:id="locationColumn" prefWidth="74.4000244140625" text="Vị trí" />
+                  <TableColumn fx:id="statusColumn" prefWidth="118.39996337890625" text="Tình trạng" />
               </columns>
             </TableView>
          </children></AnchorPane>

@@ -20,7 +20,7 @@
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
             <Label prefHeight="18.0" prefWidth="101.0" text="Trang chủ" />
-            <Button fx:id="buttonMain" mnemonicParsing="false" onAction="#SwitchToHome" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -29,7 +29,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="30.0" prefWidth="100.0" text="Sách" />
-            <Button mnemonicParsing="false" onAction="#SwitchToBook" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" onAction="#switchToBook" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -38,7 +38,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Độc giả" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#SwitchToBorrower" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" onAction="#switchToBorrower" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -47,7 +47,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Mượn sách" />
-            <Button mnemonicParsing="false" onAction="#SwitchToCard" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -56,7 +56,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Trả sách" />
-            <Button mnemonicParsing="false" onAction="#SwitchToGiveBack" prefHeight="80.0" prefWidth="100.0">
+            <Button mnemonicParsing="false" onAction="#switchToGiveBack" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
