@@ -8,11 +8,20 @@ public class Borrower {
     private String phoneNumber; //Số điện thoại người mượn
     private String email;   //Email người mượn
     private LocalDate dateOfBirth;  //Ngày tháng năm sinh
-    private String gender;  //Giới tính
     private String type;    //Loại người mượn
+    private LocalDate last; //Ngày mượn cuối cùng
 
     public Borrower() {
 
+    }
+
+    public Borrower(String id, String fullName, String phoneNumber,LocalDate dateOfBirth, String email, String type) {
+        this.id = id;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.type = type;
     }
 
     public void setId(String id) {
@@ -55,12 +64,12 @@ public class Borrower {
         return dateOfBirth;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setLast(LocalDate last) {
+        this.last = last;
     }
 
-    public String getGender() {
-        return gender;
+    public LocalDate getLast() {
+        return last;
     }
 
     public void setType(String type) {
