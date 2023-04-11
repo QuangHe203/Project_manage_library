@@ -159,8 +159,10 @@ public class BookController implements Initializable {
         titleTextField.setText(selectedBook.getTitle());
         authorTextField.setText(selectedBook.getAuthor());
         publisherTextField.setText(selectedBook.getPublisher());
+        locationTextField.setText(selectedBook.getLocation());
         genreComboBox.setValue(selectedBook.getGenre());
         publicationYearTextField.setText(String.valueOf(selectedBook.getPublicationYear()));
+        quantityTextField.setText(String.valueOf(selectedBook.getQuantity()));
 
         // Thay đổi nút Chỉnh sửa thành nút Lưu
         editButton.setText("Lưu");
