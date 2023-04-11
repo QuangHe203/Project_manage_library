@@ -81,8 +81,8 @@
          <children>
             <HBox layoutX="593.0" layoutY="21.0" prefHeight="26.0" prefWidth="158.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " onAction="#switchToAddBook"/>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
+                  <Button mnemonicParsing="false" onAction="#addBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " />
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
                   <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" />
                </children>
             </HBox>
@@ -91,7 +91,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <GridPane layoutY="68.0" prefHeight="204.0" prefWidth="760.0">
+            <GridPane layoutX="1.0" layoutY="57.0" prefHeight="204.0" prefWidth="760.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.39996337890625" minWidth="10.0" prefWidth="82.199951171875" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="288.600048828125" minWidth="10.0" prefWidth="288.600048828125" />
@@ -111,14 +111,17 @@
                   <Label text="Tác giả:" GridPane.rowIndex="2" />
                   <Label text="Nhà xuất bản:" GridPane.rowIndex="3" />
                   <Label text="Năm xuất bản:" GridPane.columnIndex="3" />
-                  <Label text="Thể loại:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" fx:id="idTextField"/>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="titleTextField"/>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="authorTextField"/>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="publisherTextField"/>
-                  <Button mnemonicParsing="false" style="-fx-background-color: #007FFF;" text="Tra cứu" GridPane.columnIndex="4" GridPane.rowIndex="2" onAction="#searchBooks"/>
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" fx:id="genreComboBox" />
-                  <TextField GridPane.columnIndex="4" fx:id="publishDateTextField"/>
+                  <Label text="Thể loại:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="idTextField" GridPane.columnIndex="1" />
+                  <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="authorTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="publisherTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="genreComboBox" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <TextField fx:id="publicationYearTextField" GridPane.columnIndex="4" />
+                  <Label text="Số lượng:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Label text="Vị trí:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <TextField fx:id="quantityTextField" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <TextField fx:id="locationTextField" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <TableView fx:id="tableView" layoutY="299.0" prefHeight="323.0" prefWidth="766.0">
@@ -133,6 +136,7 @@
                   <TableColumn fx:id="statusColumn" prefWidth="118.39996337890625" text="Tình trạng" />
               </columns>
             </TableView>
+            <Button layoutX="95.0" layoutY="261.0" mnemonicParsing="false" onAction="#searchBooks" style="-fx-background-color: #007FFF;" text="Tra cứu" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
