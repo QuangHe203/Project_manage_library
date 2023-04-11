@@ -153,7 +153,10 @@ public class BookController implements Initializable {
         Book selectedBook = tableView.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
             // Hiển thị thông báo cho người dùng biết họ cần chọn một sách để chỉnh sửa
-            System.out.println("Vui lòng chọn một cuốn sách để chỉnh sửa.");
+            Alert alert = new Alert(AlertType.INFORMATION, "Sai thao tác", ButtonType.OK);
+            alert.setTitle("Chọn một sách để sửa");
+            alert.setHeaderText(null);
+            alert.showAndWait();
             return;
         }
 
@@ -228,8 +231,11 @@ public class BookController implements Initializable {
             genreComboBox.setValue(null);
 
         } catch (NumberFormatException e) {
-                // Handle exception if user enters invalid input for publication year or quantity
-                System.out.println("Invalid input format");
+                //Thông báo khi 
+                Alert alert = new Alert(AlertType.INFORMATION, "Cú pháp sai", ButtonType.OK);
+                alert.setTitle("Kiểm tra lại các trường thông tin");
+                alert.setHeaderText(null);
+                alert.showAndWait();
         }
     }
 
@@ -237,7 +243,10 @@ public class BookController implements Initializable {
     void deleteBook(ActionEvent event) {
         Book selectedBook = tableView.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
-            System.out.println("Vui lòng chọn một cuốn sách để xóa.");
+            Alert alert = new Alert(AlertType.INFORMATION, "Sai thao tác", ButtonType.OK);
+            alert.setTitle("Chọn một sách đê xóa");
+            alert.setHeaderText(null);
+            alert.showAndWait();
             return;
         }
 
@@ -247,9 +256,13 @@ public class BookController implements Initializable {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
+            // Xóa sách khỏi cơ sở dữ liệu 
             App.books.remove(selectedBook);
-            // Xóa sách khỏi cơ sở dữ liệu (ví dụ: gọi phương thức xóa sách trong lớp quản lý cơ sở dữ liệu)
-            System.out.println("Sách đã được xóa thành công.");
+            //Tạo dialog thông báo xóa sách thành công
+            Alert sucessAlert = new Alert(AlertType.INFORMATION, "Sách đã được xóa thành công.", ButtonType.OK);
+            sucessAlert.setTitle("Xóa sách thành công");
+            sucessAlert.setHeaderText(null);
+            sucessAlert.showAndWait();
         }
     }
 }
