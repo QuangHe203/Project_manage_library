@@ -83,7 +83,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#addBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " />
                   <Button fx:id="editButton" mnemonicParsing="false" onAction="#editBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" />
+                  <Button mnemonicParsing="false" onAction="#deleteBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" />
                </children>
             </HBox>
             <Label layoutX="7.0" layoutY="19.0" prefHeight="30.0" prefWidth="137.0" text="Tra cứu sách ">
@@ -127,13 +127,13 @@
             <TableView fx:id="tableView" layoutY="299.0" prefHeight="323.0" prefWidth="766.0">
               <columns>
                 <TableColumn fx:id="idColumn" prefWidth="33.600006103515625" text="ID" />
-                <TableColumn fx:id="titleColumn" prefWidth="133.5999755859375" text="Tiêu đề" />
-                  <TableColumn fx:id="authorColumn" prefWidth="87.99993896484375" text="Tác giả" />
-                  <TableColumn fx:id="publisherColumn" prefWidth="130.39999389648438" text="Nhà xuất bản" />
-                  <TableColumn fx:id="publicationYearColumn" minWidth="0.0" prefWidth="88.0" text="Năm xuất bản" />
-                  <TableColumn fx:id="genreColumn" prefWidth="103.20001220703125" text="Thể loại" />
-                  <TableColumn fx:id="locationColumn" prefWidth="74.4000244140625" text="Vị trí" />
-                  <TableColumn fx:id="statusColumn" prefWidth="118.39996337890625" text="Tình trạng" />
+                <TableColumn fx:id="titleColumn" prefWidth="144.800048828125" text="Tiêu đề" />
+                  <TableColumn fx:id="authorColumn" prefWidth="117.5999755859375" text="Tác giả" />
+                  <TableColumn fx:id="publisherColumn" prefWidth="124.80001831054688" text="Nhà xuất bản" />
+                  <TableColumn fx:id="publicationYearColumn" minWidth="0.0" prefWidth="86.39996337890625" text="Năm xuất bản" />
+                  <TableColumn fx:id="genreColumn" prefWidth="104.7999267578125" text="Thể loại" />
+                  <TableColumn fx:id="locationColumn" prefWidth="72.0001220703125" text="Vị trí" />
+                  <TableColumn fx:id="statusColumn" prefWidth="89.60009765625" text="Tình trạng" />
               </columns>
             </TableView>
             <Button layoutX="95.0" layoutY="261.0" mnemonicParsing="false" onAction="#searchBooks" style="-fx-background-color: #007FFF;" text="Tra cứu" />

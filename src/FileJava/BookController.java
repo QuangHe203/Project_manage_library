@@ -10,11 +10,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleObjectProperty;
@@ -198,36 +201,55 @@ public class BookController implements Initializable {
         genreComboBox.setValue(null);
         }
 
-        //Chức năng thêm sách
-        @FXML
-        void addBook(ActionEvent event) {
-            try {
-                String id = idTextField.getText();
-                String title = titleTextField.getText();
-                String author = authorTextField.getText();
-                String publisher = publisherTextField.getText();
-                int publicationYear = Integer.parseInt(publicationYearTextField.getText());
-                int quantity = Integer.parseInt(quantityTextField.getText());
-                String location = locationTextField.getText();
-                String status = quantity == 0 ? "Không có sẵn" : "Có sẵn";
-                String genre = genreComboBox.getValue();
+    //Chức năng thêm sách
+    @FXML
+    void addBook(ActionEvent event) {
+        try {                String id = idTextField.getText();
+            String title = titleTextField.getText();
+            String author = authorTextField.getText();
+            String publisher = publisherTextField.getText();
+            int publicationYear = Integer.parseInt(publicationYearTextField.getText());
+            int quantity = Integer.parseInt(quantityTextField.getText());
+            String location = locationTextField.getText();
+            String status = quantity == 0 ? "Không có sẵn" : "Có sẵn";
+            String genre = genreComboBox.getValue();
     
-                Book newBook = new Book(id, title, author, publisher, publicationYear, quantity, genre, status, location);
-                App.books.add(newBook);
+            Book newBook = new Book(id, title, author, publisher, publicationYear, quantity, genre, status, location);
+            App.books.add(newBook);
     
-                //Refresh các textfield
-                idTextField.setText("");
-                titleTextField.setText("");
-                authorTextField.setText("");
-                publisherTextField.setText("");
-                publicationYearTextField.setText("");
-                quantityTextField.setText("");
-                locationTextField.setText("");
-                genreComboBox.setValue(null);
+            //Refresh các textfield
+            idTextField.setText("");
+            titleTextField.setText("");
+            authorTextField.setText("");
+            publisherTextField.setText("");
+            publicationYearTextField.setText("");
+            quantityTextField.setText("");
+            locationTextField.setText("");
+            genreComboBox.setValue(null);
 
-            } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
                 // Handle exception if user enters invalid input for publication year or quantity
                 System.out.println("Invalid input format");
-            }
         }
+    }
+
+    @FXML
+    void deleteBook(ActionEvent event) {
+        Book selectedBook = tableView.getSelectionModel().getSelectedItem();
+        if (selectedBook == null) {
+            System.out.println("Vui lòng chọn một cuốn sách để xóa.");
+            return;
+        }
+
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa sách này không?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Xác nhận xóa");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            App.books.remove(selectedBook);
+            // Xóa sách khỏi cơ sở dữ liệu (ví dụ: gọi phương thức xóa sách trong lớp quản lý cơ sở dữ liệu)
+            System.out.println("Sách đã được xóa thành công.");
+        }
+    }
 }
