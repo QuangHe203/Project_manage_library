@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="905.0" style="-fx-background-color: #8bc6d3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="905.0" style="-fx-background-color: #8bc6d3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FileJava.AddBookController">
    <children>
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
@@ -99,28 +99,28 @@
               </rowConstraints>
                <children>
                   <Label text="Mã sách:" />
-                  <Label text="Tiêu đề:" GridPane.rowIndex="1" />
+                  <Label text="Tiêu đề:" GridPane.rowIndex="1"/>
                   <Label text="Tác giả:" GridPane.rowIndex="2" />
                   <Label text="Nhà xuất bản:" GridPane.rowIndex="3" />
                   <Label text="Năm xuất bản:" GridPane.columnIndex="3" />
                   <Label text="Thể loại:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <TextField GridPane.columnIndex="1" fx:id="idTextField"/>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="titleTextField"/>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="authorTextField"/>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="publisherTextField"/>
+                  <TextField GridPane.columnIndex="4" fx:id="publicationYearTextField"/>
+                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" fx:id="genreComboBox"/>
                   <Label text="Số lượng:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <TextField GridPane.columnIndex="4" GridPane.rowIndex="1" fx:id="quantityTextField"/>
                   <Label text="Vị trí:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <TextField GridPane.columnIndex="4" GridPane.rowIndex="3" fx:id="locationTextField" />
                </children>
             </GridPane>
             <HBox layoutX="573.0" layoutY="299.0" prefHeight="26.0" prefWidth="186.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="59.0" text="Thoát" />
-                  <Button mnemonicParsing="false" text="Làm mới" />
-                  <Button mnemonicParsing="false" text="Xác nhận" />
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="59.0" text="Thoát" onAction="#switchToBook" />
+                  <Button mnemonicParsing="false" text="Làm mới" onAction="#refresh"/>
+                  <Button mnemonicParsing="false" text="Xác nhận" onAction="#addBook"/>
                </children>
             </HBox>
          </children></AnchorPane>

@@ -81,7 +81,7 @@
          <children>
             <HBox layoutX="593.0" layoutY="21.0" prefHeight="26.0" prefWidth="158.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " />
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " onAction="#switchToAddBook"/>
                   <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
                   <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" />
                </children>
