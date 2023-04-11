@@ -153,8 +153,8 @@ public class BookController implements Initializable {
         Book selectedBook = tableView.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
             // Hiển thị thông báo cho người dùng biết họ cần chọn một sách để chỉnh sửa
-            Alert alert = new Alert(AlertType.INFORMATION, "Sai thao tác", ButtonType.OK);
-            alert.setTitle("Chọn một sách để sửa");
+            Alert alert = new Alert(AlertType.INFORMATION, "Chọn một sách để sửa", ButtonType.OK);
+            alert.setTitle("Sai thao tác");
             alert.setHeaderText(null);
             alert.showAndWait();
             return;
@@ -232,8 +232,8 @@ public class BookController implements Initializable {
 
         } catch (NumberFormatException e) {
                 //Thông báo khi 
-                Alert alert = new Alert(AlertType.INFORMATION, "Cú pháp sai", ButtonType.OK);
-                alert.setTitle("Kiểm tra lại các trường thông tin");
+                Alert alert = new Alert(AlertType.INFORMATION, "Kiểm tra lại các trường thông tin", ButtonType.OK);
+                alert.setTitle("Cú pháp sai");
                 alert.setHeaderText(null);
                 alert.showAndWait();
         }
@@ -243,8 +243,8 @@ public class BookController implements Initializable {
     void deleteBook(ActionEvent event) {
         Book selectedBook = tableView.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
-            Alert alert = new Alert(AlertType.INFORMATION, "Sai thao tác", ButtonType.OK);
-            alert.setTitle("Chọn một sách đê xóa");
+            Alert alert = new Alert(AlertType.INFORMATION, "Chọn một sách đê xóa", ButtonType.OK);
+            alert.setTitle("Sai thao tác");
             alert.setHeaderText(null);
             alert.showAndWait();
             return;
