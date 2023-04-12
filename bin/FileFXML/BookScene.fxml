@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -22,7 +21,7 @@
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
             <Label prefHeight="18.0" prefWidth="101.0" text="Trang chủ" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToHome">
+            <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,7 +39,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Độc giả" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBorrower">
+            <Button mnemonicParsing="false" onAction="#switchToBorrower" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +48,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Mượn sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToCard">
+            <Button mnemonicParsing="false" onAction="#switchToCard" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +57,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Trả sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToGiveBack">
+            <Button mnemonicParsing="false" onAction="#switchToGiveBack" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,9 +81,9 @@
          <children>
             <HBox layoutX="593.0" layoutY="21.0" prefHeight="26.0" prefWidth="158.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" />
+                  <Button mnemonicParsing="false" onAction="#addBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " />
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
+                  <Button mnemonicParsing="false" onAction="#deleteBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" />
                </children>
             </HBox>
             <Label layoutX="7.0" layoutY="19.0" prefHeight="30.0" prefWidth="137.0" text="Tra cứu sách ">
@@ -92,7 +91,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <GridPane layoutY="68.0" prefHeight="204.0" prefWidth="760.0">
+            <GridPane layoutX="1.0" layoutY="57.0" prefHeight="204.0" prefWidth="760.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.39996337890625" minWidth="10.0" prefWidth="82.199951171875" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="288.600048828125" minWidth="10.0" prefWidth="288.600048828125" />
@@ -112,28 +111,32 @@
                   <Label text="Tác giả:" GridPane.rowIndex="2" />
                   <Label text="Nhà xuất bản:" GridPane.rowIndex="3" />
                   <Label text="Năm xuất bản:" GridPane.columnIndex="3" />
-                  <Label text="Thể loại:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: #007FFF;" text="Tra cứu" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Label text="Thể loại:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="idTextField" GridPane.columnIndex="1" />
+                  <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="authorTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="publisherTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="genreComboBox" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <TextField fx:id="publicationYearTextField" GridPane.columnIndex="4" />
+                  <Label text="Số lượng:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Label text="Vị trí:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <TextField fx:id="quantityTextField" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <TextField fx:id="locationTextField" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <TableView layoutY="299.0" prefHeight="323.0" prefWidth="766.0" fx:id="tableView">
+            <TableView fx:id="tableView" layoutY="299.0" prefHeight="323.0" prefWidth="766.0">
               <columns>
-                <TableColumn prefWidth="19.199981689453125" text="ID" fx:id="idColumn"/>
-                <TableColumn prefWidth="113.60000610351562" text="Tiêu đề" fx:id="titleColumn"/>
-                  <TableColumn prefWidth="82.4000244140625" text="Tác giả" fx:id="authorColumn"/>
-                  <TableColumn prefWidth="132.0" text="Nhà xuất bản" fx:id="publisherColumn" fx:id="publisherColumn"/>
-                  <TableColumn minWidth="0.0" prefWidth="122.39999389648438" text="Năm xuất bản" fx:id="publicationYearColumn"/>
-                  <TableColumn prefWidth="103.20001220703125" text="Thể loại" fx:id="genreColumn"/>
-                  <TableColumn prefWidth="74.4000244140625" text="Tình trạng" fx:id="locationColumn"/>
-                  <TableColumn prefWidth="118.39996337890625" text="vị trí" fx:id="statusColumn"/>
+                <TableColumn fx:id="idColumn" prefWidth="33.600006103515625" text="ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="144.800048828125" text="Tiêu đề" />
+                  <TableColumn fx:id="authorColumn" prefWidth="117.5999755859375" text="Tác giả" />
+                  <TableColumn fx:id="publisherColumn" prefWidth="124.80001831054688" text="Nhà xuất bản" />
+                  <TableColumn fx:id="publicationYearColumn" minWidth="0.0" prefWidth="86.39996337890625" text="Năm xuất bản" />
+                  <TableColumn fx:id="genreColumn" prefWidth="104.7999267578125" text="Thể loại" />
+                  <TableColumn fx:id="locationColumn" prefWidth="72.0001220703125" text="Vị trí" />
+                  <TableColumn fx:id="statusColumn" prefWidth="89.60009765625" text="Tình trạng" />
               </columns>
             </TableView>
+            <Button layoutX="95.0" layoutY="261.0" mnemonicParsing="false" onAction="#searchBooks" style="-fx-background-color: #007FFF;" text="Tra cứu" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

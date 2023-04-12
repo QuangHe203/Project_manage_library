@@ -22,7 +22,7 @@
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
             <Label prefHeight="18.0" prefWidth="101.0" text="Trang chủ" />
-            <Button fx:id="buttonMain" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToHome">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToHome">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -31,7 +31,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="30.0" prefWidth="100.0" text="Sách" />
-            <Button fx:id="butto" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBook">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBook">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,9 +82,9 @@
          <children>
             <HBox layoutY="597.0" prefHeight="26.0" prefWidth="168.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" />
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm" fx:id="addBorrowerButton" onAction="#addBorrower"/>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" fx:id="editBorrowerButton" onAction="#editBorrower"/>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" fx:id="deleteBorrowerButton" onAction="#deleteBorrower"/>
                </children>
             </HBox>
             <Label layoutX="7.0" layoutY="6.0" prefHeight="43.0" prefWidth="215.0" text="Tra cứu người mượn">
@@ -108,28 +108,28 @@
                <children>
                   <Label text="ID :" />
                   <Label text="Họ và tên:" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField GridPane.columnIndex="1" fx:id="idTextField"/>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="fullNameTextField"/>
                   <Label text="Ngày tháng năm sinh:" GridPane.columnIndex="3" />
                   <Label text="Loại người mượn:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Label text="Số điện thoại:" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <DatePicker GridPane.columnIndex="4" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="phoneNumberTextField"/>
+                  <DatePicker GridPane.columnIndex="4" fx:id="dateOfBirthTextField"/>
+                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" fx:id="typeComboBox"/>
                   <Label text="Địa chỉ Email:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField prefHeight="26.0" prefWidth="192.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <TextField prefHeight="26.0" prefWidth="192.0" GridPane.columnIndex="4" GridPane.rowIndex="1" fx:id="emailTextField"/>
                </children>
             </GridPane>
-            <Button layoutX="356.0" layoutY="168.0" mnemonicParsing="false" style="-fx-background-color: #0000FF;" text="Tra cứu" />
-            <TableView layoutY="212.0" prefHeight="374.0" prefWidth="767.0">
+            <Button layoutX="356.0" layoutY="168.0" mnemonicParsing="false" style="-fx-background-color: #0000FF;" text="Tra cứu" onAction="#searchBorrowers"/>
+            <TableView layoutY="212.0" prefHeight="374.0" prefWidth="767.0" fx:id="tableView">
               <columns>
-                <TableColumn prefWidth="47.999969482421875" text="ID" />
-                <TableColumn prefWidth="128.80001831054688" text="Họ và tên" />
-                  <TableColumn prefWidth="117.5999755859375" text="Số điện thoại" />
-                  <TableColumn prefWidth="129.60006713867188" text="Ngày sinh" />
-                  <TableColumn prefWidth="134.4000244140625" text="Email" />
-                  <TableColumn minWidth="0.0" prefWidth="74.4000244140625" text="Loại" />
-                  <TableColumn prefWidth="127.199951171875" text="Ngày mượn gần nhất" />
+                <TableColumn prefWidth="47.999969482421875" text="ID" fx:id="idColumn"/>
+                <TableColumn prefWidth="128.80001831054688" text="Họ và tên" fx:id="fullNameColumn"/>
+                  <TableColumn prefWidth="117.5999755859375" text="Số điện thoại" fx:id="phoneNumberColumn"/>
+                  <TableColumn prefWidth="129.60006713867188" text="Ngày sinh" fx:id="dateOfBirthColumn"/>
+                  <TableColumn prefWidth="134.4000244140625" text="Email" fx:id="emailColumn"/>
+                  <TableColumn minWidth="0.0" prefWidth="74.4000244140625" text="Loại" fx:id="typeColumn"/>
+                  <TableColumn prefWidth="127.199951171875" text="Ngày mượn gần nhất" fx:id="lastColumn"/>
               </columns>
             </TableView>
          </children></AnchorPane>

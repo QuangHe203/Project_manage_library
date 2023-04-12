@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
+    public static ObservableList<Borrower> borrowers = FXCollections.observableArrayList();
     static ObservableList<Book> books = FXCollections.observableArrayList(
 
     new Book("B01", "Harry Potter and the Philosopher's Stone", "J.K. Rowling", "Bloomsbury Publishing", 1997, 50, "Fantasy", "Available", "A1"),
@@ -49,6 +50,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        borrowers.addAll(BorrowerData.generateBorrowers());
         launch(args);
     }
 }
