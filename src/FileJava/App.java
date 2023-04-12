@@ -11,7 +11,8 @@ import javafx.stage.Stage;
 
 public class App extends Application {
     public static ObservableList<Borrower> borrowers = FXCollections.observableArrayList();
-    static ObservableList<Book> books = FXCollections.observableArrayList(
+    public static ObservableList<Card> cards = FXCollections.observableArrayList();
+    public static ObservableList<Book> books = FXCollections.observableArrayList(
 
     new Book("B01", "Harry Potter and the Philosopher's Stone", "J.K. Rowling", "Bloomsbury Publishing", 1997, 50, "Fantasy", "Available", "A1"),
     new Book("B02", "The Hunger Games", "Suzanne Collins", "Scholastic Press", 2008, 40, "Science Fiction", "Available", "A2"),

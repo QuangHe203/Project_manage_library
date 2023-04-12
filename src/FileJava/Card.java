@@ -4,30 +4,30 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Card {
-    private String borrowCardId;    // ID thẻ mượn sách
+    private String cardId;    // ID thẻ mượn sách
     private String borrowerId;  //ID người mượn sách
     private List<Book> borrowedBooks;   //Danh sách sách mượn
     private LocalDate borrowDate;   //Ngày mượn
-    private LocalDate dueDate;  //Ngày hẹn trả
+    private LocalDate returnDate;  //Ngày hẹn trả
 
     public Card() {
 
     }
 
-    public Card(String borrowCardId, String borrowerId, List<Book> borrowedBooks, LocalDate borrowDate, LocalDate dueDate) {
-        this.borrowCardId = borrowCardId;
+    public Card(String cardId, String borrowerId, LocalDate borrowDate, LocalDate returnDate,  List<Book> borrowedBooks) {
+        this.cardId = cardId;
         this.borrowerId = borrowerId;
         this.borrowedBooks = borrowedBooks;
         this.borrowDate = borrowDate;
-        this.dueDate = dueDate;
+        this.returnDate = returnDate;
     }
 
     public String getBorrowCardId() {
-        return borrowCardId;
+        return cardId;
     }
 
     public void setBorrowCardId(String borrowCardId) {
-        this.borrowCardId = borrowCardId;
+        this.cardId = borrowCardId;
     }
 
     public String getBorrowerId() {
@@ -54,11 +54,11 @@ public class Card {
         this.borrowDate = borrowDate;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
+    public LocalDate getReturnDate() {
+        return returnDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
     }
 }

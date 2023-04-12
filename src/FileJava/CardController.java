@@ -1,21 +1,28 @@
 package FileJava;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
 public class CardController {
-    @FXML
-    private Stage stage;
-
-    @FXML
-    private Scene scene;
+    @FXML private Stage stage;
+    @FXML private Scene scene;
 
     @FXML
     public void switchToHome(ActionEvent event) throws IOException {
@@ -51,5 +58,108 @@ public class CardController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML private TextField cardIdTextField;
+    @FXML private TextField borrowerIdTextField;
+    @FXML private DatePicker borrowDateDatePicker;
+    @FXML private DatePicker returnDateDatePicker;
+
+    @FXML private TableView<Book> booksTableView;
+    @FXML private TableColumn<Book, Integer> indexColumn;
+    @FXML private TableColumn<Book, String> inputBookIdColumn;
+    @FXML private TableColumn<Book, String> titleColumn;
+    @FXML private TableColumn<Book, String> authorColumn;
+    @FXML private TableColumn<Book, String> publisherColumn;
+    @FXML private TableColumn<Book, Integer> publicationYearColumn;
+    @FXML private TableColumn<Book, String> genreColumn;
+
+    private ObservableList<Book> borrowedBooks;
+
+    public void initialize() {
+        borrowedBooks = FXCollections.observableArrayList();
+
+        indexColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(booksTableView.getItems().indexOf(cellData.getValue()) + 1).asObject());
+        titleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
+        authorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuthor()));
+        publisherColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPublisher()));
+        publicationYearColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPublicationYear()).asObject());
+        genreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenre()));
+
+        inputBookIdColumn.setCellFactory(param -> {
+            TextField bookIdField = new TextField();
+        
+            TableCell<Book, String> cell = new TableCell<>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+        
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(bookIdField);
+                    }
+                }
+            };
+        
+            // Xử lý sự kiện khi TextField được chỉnh sửa
+            bookIdField.setOnAction(event -> {
+                String newBookId = bookIdField.getText();
+            
+                // Tìm sách dựa trên newBookId
+                Book bookToBorrow = findBookById(newBookId);
+            
+                // Nếu tìm thấy sách, cập nhật thông tin sách trong TableView
+                if (bookToBorrow != null) {
+                    updateBookInformation(cell.getIndex(), bookToBorrow);
+                } else {
+                    // Xử lý trường hợp không tìm thấy sách (ví dụ: hiển thị thông báo lỗi)
+                }
+            });
+            
+        
+            return cell;
+        });
+        
+        
+
+        booksTableView.setItems(borrowedBooks);
+    }
+
+    public Book findBookById(String id) {
+        for (Book book : App.books) {
+            if (book.getId().equals(id)) {
+                return book;
+            }
+        }
+        return null;
+    }
+    
+    private void updateBookInformation(int index, Book book) {
+        borrowedBooks.set(index, book);
+    }
+
+    @FXML
+    public void addBookToBorrowList(Book book) {
+        borrowedBooks.add(book);
+    }
+
+    @FXML
+    public void removeBookFromBorrowList(Book book) {
+        borrowedBooks.remove(book);
+    }
+
+    @FXML
+    public void createBorrowCard() {
+        // Lấy thông tin từ các trường nhập liệu
+        String cardId = cardIdTextField.getText();
+        String borrowerId = borrowerIdTextField.getText();
+        LocalDate borrowDate = borrowDateDatePicker.getValue();
+        LocalDate returnDate = returnDateDatePicker.getValue();
+
+        // Tạo đối tượng BorrowCard với thông tin đã lấy
+        Card newCard = new Card(cardId, borrowerId, borrowDate, returnDate, borrowedBooks);
+        
+        App.cards.add(newCard); 
     }
 }
