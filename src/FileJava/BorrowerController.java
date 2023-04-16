@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 public class BorrowerController implements Initializable{
     @FXML private Stage stage;
     @FXML private Scene scene;
-
+    
     @FXML
     public void switchToHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/HomeScene.fxml"));
@@ -256,4 +256,6 @@ public class BorrowerController implements Initializable{
             successAlert.showAndWait();
         }
     }
+
+
 }

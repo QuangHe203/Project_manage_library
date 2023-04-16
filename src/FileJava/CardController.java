@@ -12,11 +12,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -112,8 +115,17 @@ public class CardController {
                 // Nếu tìm thấy sách, cập nhật thông tin sách trong TableView
                 if (bookToBorrow != null) {
                     updateBookInformation(cell.getIndex(), bookToBorrow);
+
+                    // Kiểm tra xem dòng trống cuối cùng có phải là dòng cuối cùng trong TableView không
+                    if (cell.getIndex() == borrowedBooks.size() - 1) {
+                        borrowedBooks.add(new Book()); // Thêm một dòng trống mới vào cuối
+                    }
                 } else {
-                    // Xử lý trường hợp không tìm thấy sách (ví dụ: hiển thị thông báo lỗi)
+                    Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy sách", ButtonType.OK);
+                    alert.setTitle("Không tìm thấy sách");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
+            return;
                 }
             });
             
@@ -122,7 +134,7 @@ public class CardController {
         });
         
         
-
+        borrowedBooks.add(new Book());
         booksTableView.setItems(borrowedBooks);
     }
 
