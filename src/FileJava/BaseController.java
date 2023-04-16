@@ -11,12 +11,10 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 
-public class MainController {
-    @FXML
-    private Stage stage;
+public class BaseController {
 
-    @FXML
-    private Scene scene;
+    @FXML private Stage stage;
+    @FXML private Scene scene;
 
     @FXML
     public void switchToHome(ActionEvent event) throws IOException {
@@ -38,7 +36,7 @@ public class MainController {
 
     @FXML
     public void switchToBorrower(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/Borrower.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/BorrowerScene.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

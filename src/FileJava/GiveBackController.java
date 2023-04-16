@@ -14,7 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
-public class GiveBackController {
+public class GiveBackController extends BaseController {
     @FXML
     private Stage stage;
 
@@ -97,33 +97,6 @@ public class GiveBackController {
             return false;
         }
     }
-    @FXML
-    public void switchToBook(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/BookScene.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    public void switchToBorrower(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/BorrowerScene.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    public void switchToCard(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/CardScene.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
 }
 
 
