@@ -1,6 +1,8 @@
 package FileJava;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -33,10 +35,12 @@ public class CardController extends BaseController {
     @FXML private TableColumn<Book, String> genreColumn;
 
     private ObservableList<Book> borrowedBooks;
+    private Set<String> bookIds = new HashSet<>();
 
     public void initialize() {
         borrowedBooks = FXCollections.observableArrayList();
 
+        inputBookIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         indexColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(booksTableView.getItems().indexOf(cellData.getValue()) + 1).asObject());
         titleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
         authorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuthor()));
@@ -60,17 +64,30 @@ public class CardController extends BaseController {
                 }
             };
         
-            // Xử lý sự kiện khi TextField được chỉnh sửa
             bookIdField.setOnAction(event -> {
                 String newBookId = bookIdField.getText();
-            
+        
+                // Kiểm tra xem ID sách mới đã tồn tại hay chưa
+                if (bookIds.contains(newBookId)) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "ID sách đã được sử dụng", ButtonType.OK);
+                    alert.setTitle("ID sách đã được sử dụng");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
+                    return;
+                }
+        
+                // Lưu trữ ID sách mới vào HashSet
+                bookIds.add(newBookId);
+        
                 // Tìm sách dựa trên newBookId
                 Book bookToBorrow = findBookById(newBookId);
-            
+        
                 // Nếu tìm thấy sách, cập nhật thông tin sách trong TableView
                 if (bookToBorrow != null) {
                     updateBookInformation(cell.getIndex(), bookToBorrow);
-
+        
+                    // Hiển thị ID của cuốn sách vừa tìm được
+                    bookIdField.setText(newBookId);
                     // Kiểm tra xem dòng trống cuối cùng có phải là dòng cuối cùng trong TableView không
                     if (cell.getIndex() == borrowedBooks.size() - 1) {
                         borrowedBooks.add(new Book()); // Thêm một dòng trống mới vào cuối
@@ -80,10 +97,9 @@ public class CardController extends BaseController {
                     alert.setTitle("Không tìm thấy sách");
                     alert.setHeaderText(null);
                     alert.showAndWait();
-            return;
+                    return;
                 }
             });
-            
         
             return cell;
         });

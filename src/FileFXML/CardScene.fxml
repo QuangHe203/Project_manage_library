@@ -76,7 +76,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="130.0" layoutY="67.0" prefHeight="624.0" prefWidth="766.0">
+      <AnchorPane layoutX="124.0" layoutY="67.0" prefHeight="624.0" prefWidth="766.0">
          <children>
             <Label layoutY="3.0" prefHeight="41.0" prefWidth="174.0" text="Tạo thẻ mượn sách ">
                <font>
@@ -100,24 +100,25 @@
                   <Label text="ID người mượn sách:" GridPane.rowIndex="1" />
                   <Label text="Ngày mượn:" GridPane.columnIndex="3" />
                   <Label text="Ngày hẹn trả:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" fx:id="cardIdTextField"/>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="borrowerIdTextField"/>
-                  <DatePicker prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" fx:id="borrowDateDatePicker"/>
-                  <DatePicker prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="4" GridPane.rowIndex="1" fx:id="returnDateDatePicker"/>
+                  <TextField fx:id="cardIdTextField" GridPane.columnIndex="1" />
+                  <TextField fx:id="borrowerIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="borrowDateDatePicker" prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" />
+                  <DatePicker fx:id="returnDateDatePicker" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Label layoutY="152.0" text="Danh sách sách mượn:" />
-            <Button layoutX="693.0" layoutY="573.0" mnemonicParsing="false" style="-fx-background-color: #00FF00;" text="Xác nhận" onAction="#createBorrowCard"/>
+            <Label layoutY="148.0" text="Danh sách sách mượn:" />
+            <Button layoutX="693.0" layoutY="573.0" mnemonicParsing="false" onAction="#createBorrowCard" style="-fx-background-color: #00FF00;" text="Xác nhận" />
             <Button layoutX="621.0" layoutY="573.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="72.0" text="Làm mới" />
-            <TableView layoutX="3.0" layoutY="188.0" prefHeight="323.0" prefWidth="766.0" fx:id="booksTableView">
+            <TableView fx:id="booksTableView" layoutY="196.0" prefHeight="323.0" prefWidth="766.0">
                <columns>
-                  <TableColumn prefWidth="33.600006103515625" text="STT" fx:id="indexColumn"/>
-                  <TableColumn prefWidth="60.800048828125" text="ID" fx:id="inputBookIdColumn"/>
-                  <TableColumn prefWidth="180.79998779296875" text="Tiêu đề" fx:id="titleColumn"/>
-                  <TableColumn prefWidth="167.20004272460938" text="Tác giả" fx:id="authorColumn"/>
-                  <TableColumn minWidth="0.0" prefWidth="122.4000244140625" text="Nhà xuất bản" fx:id="publisherColumn"/>
-                  <TableColumn prefWidth="115.199951171875" text="Năm xuất bản" fx:id="publicationYearColumn"/>
-                  <TableColumn prefWidth="86.4000244140625" text="Thể loại" fx:id="genreColumn"/>
+                  <TableColumn fx:id="indexColumn" prefWidth="27.199981689453125" text="STT" />
+                  <TableColumn fx:id="inputBookIdColumn" prefWidth="64.00003051757812" text="ID" />
+                  <TableColumn fx:id="titleColumn" prefWidth="167.99993896484375" text="Tiêu đề" />
+                  <TableColumn fx:id="authorColumn" prefWidth="121.5999755859375" text="Tác giả" />
+                  <TableColumn fx:id="publisherColumn" minWidth="0.0" prefWidth="137.60000610351562" text="Nhà xuất bản" />
+                  <TableColumn fx:id="publicationYearColumn" prefWidth="95.9998779296875" text="Năm xuất bản" />
+                  <TableColumn fx:id="genreColumn" minWidth="1.5999755859375" prefWidth="84.7999267578125" text="Thể loại" />
+                  <TableColumn fx:id="deleteColumn" text="Xóa" prefWidth="71.2000732421875" />
                </columns>
             </TableView>
          </children></AnchorPane>
