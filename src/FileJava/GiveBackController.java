@@ -6,40 +6,16 @@ import java.time.LocalDate;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
-import javafx.stage.Stage;
 
 public class GiveBackController extends BaseController {
-    @FXML
-    private Stage stage;
 
-    @FXML
-    private Scene scene;
-    @FXML
-    private TextField cardIdField;
+    @FXML private TextField cardIdField;
+    @FXML private TextField borrowerIdField;
+    @FXML private DatePicker borrowDateField;
+    @FXML private DatePicker returnDueDateField;
 
-    @FXML
-    private TextField borrowerIdField;
-
-    @FXML
-    private DatePicker borrowDateField;
-
-    @FXML
-    private DatePicker returnDueDateField;
-
-    @FXML
-    public void switchToHome(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FileFXML/HomeScene.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
     // Nhập thông tin thẻ mượn sách, ID người mượn, ngày mượn, ngày hẹn trả
     @FXML
     public void processReturn(ActionEvent event) throws IOException {
