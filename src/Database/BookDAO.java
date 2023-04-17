@@ -1,7 +1,6 @@
-package database;
+package Database;
 
-import database.MySQLConnection;
-import database.model.Book;
+import FileJava.Book;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
