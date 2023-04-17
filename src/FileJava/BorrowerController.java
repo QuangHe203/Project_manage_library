@@ -154,33 +154,40 @@ public class BorrowerController extends BaseController implements Initializable{
     @FXML private Button addBorrowerButton;
 
     @FXML
-    void addBorrower(ActionEvent event) {
-        try {
-            String id = idTextField.getText();
-            String fullName = fullNameTextField.getText();
-            String phoneNumber = phoneNumberTextField.getText();
-            LocalDate dateOfBirth = dateOfBirthTextField.getValue();
-            String email = emailTextField.getText();
-            String type = typeComboBox.getValue();
+    void addBorrower() {
+        String id = idTextField.getText();
+        String fullName = fullNameTextField.getText();
+        String phoneNumber = phoneNumberTextField.getText();
+        LocalDate dateOfBirth = dateOfBirthTextField.getValue();
+        String email = emailTextField.getText();
+        String type = typeComboBox.getValue();
 
-            Borrower newBorrower = new Borrower(id, fullName, phoneNumber, dateOfBirth, email, type);
-            App.borrowers.add(newBorrower);
-
-            //Refresh các textfield
-            idTextField.setText("");
-            fullNameTextField.setText("");
-            phoneNumberTextField.setText("");
-            dateOfBirthTextField.setValue(null);
-            emailTextField.setText("");
-            typeComboBox.setValue(null);
-
-        } catch (Exception e) {
-            //Thông báo khi nhập liệu sai
-            Alert alert = new Alert(AlertType.INFORMATION, "Kiểm tra lại các trường thông tin", ButtonType.OK);
-            alert.setTitle("Cú pháp sai");
-            alert.setHeaderText(null);
-            alert.showAndWait();
+        // Kiểm tra tính hợp lệ của dữ liệu nhập
+        if (id.isEmpty() || fullName.isEmpty() || phoneNumber.isEmpty()|| dateOfBirth == null || email.isEmpty() || type == null) {
+            Alert alert1 = new Alert(AlertType.INFORMATION, "Vui lòng nhập đầy đủ thông tin", ButtonType.OK);
+            alert1.setTitle("Thông tin không hợp lệ");
+            alert1.setHeaderText(null);
+            alert1.showAndWait();
+            return;
         }
+
+        Borrower newBorrower = new Borrower(id, fullName, phoneNumber, dateOfBirth, email, type);
+        App.borrowers.add(newBorrower);
+
+        //Refresh các textfield
+        idTextField.setText("");
+        fullNameTextField.setText("");
+        phoneNumberTextField.setText("");
+        dateOfBirthTextField.setValue(null);
+        emailTextField.setText("");
+        typeComboBox.setValue(null);
+
+       //Thông báo thành công
+       Alert alert2 = new Alert(AlertType.INFORMATION, "Tạo thẻ mượn sách thành công", ButtonType.OK);
+       alert2.setTitle("Tạo thẻ mượn sách thành công");
+       alert2.setHeaderText(null);
+       alert2.showAndWait();
+       return;
     }
 
     @FXML private Button deleteBorrowerButton;

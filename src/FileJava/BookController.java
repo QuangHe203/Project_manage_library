@@ -162,7 +162,8 @@ public class BookController extends BaseController implements Initializable {
     //Chức năng thêm sách
     @FXML
     void addBook(ActionEvent event) {
-        try {                String id = idTextField.getText();
+        try {
+            String id = idTextField.getText();
             String title = titleTextField.getText();
             String author = authorTextField.getText();
             String publisher = publisherTextField.getText();
@@ -187,8 +188,8 @@ public class BookController extends BaseController implements Initializable {
 
         } catch (NumberFormatException e) {
                 //Thông báo khi 
-                Alert alert = new Alert(AlertType.INFORMATION, "Kiểm tra lại các trường thông tin", ButtonType.OK);
-                alert.setTitle("Cú pháp sai");
+                Alert alert = new Alert(AlertType.INFORMATION, "Vui lòng kiểm tra lại các trường thông tin", ButtonType.OK);
+                alert.setTitle("Thông tin không hợp lệ");
                 alert.setHeaderText(null);
                 alert.showAndWait();
         }

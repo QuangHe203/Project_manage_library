@@ -108,7 +108,7 @@
             </GridPane>
             <Label layoutY="148.0" text="Danh sách sách mượn:" />
             <Button layoutX="693.0" layoutY="573.0" mnemonicParsing="false" onAction="#createBorrowCard" style="-fx-background-color: #00FF00;" text="Xác nhận" />
-            <Button layoutX="621.0" layoutY="573.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="72.0" text="Làm mới" />
+            <Button layoutX="621.0" layoutY="573.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="72.0" text="Làm mới" onAction="#switchToCard" />
             <TableView fx:id="booksTableView" layoutY="196.0" prefHeight="323.0" prefWidth="766.0">
                <columns>
                   <TableColumn fx:id="indexColumn" prefWidth="27.199981689453125" text="STT" />
