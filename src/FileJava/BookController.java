@@ -93,7 +93,6 @@ public class BookController extends BaseController implements Initializable {
         // Call a method to search for books in database using search criteria
         ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishYear));
        
-
         // Hiển thị sách đã được tìm kiếm lên tableview
         bookList.clear();
         bookList.addAll(searchedBooks);
