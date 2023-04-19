@@ -1,6 +1,9 @@
 package FileJava;
 
+import Database.BookDAO;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -49,8 +52,8 @@ public class BookController extends BaseController implements Initializable {
         //Khởi tạo giá trị cho tableView
         tableView.setItems(App.books);
 
-        genreComboBox.getItems().addAll("Fantasy", "Historical Fiction", "Romantic Fiction", "Gothic Fiction", "Thriller", "Mystery");
-        genreComboBox.setValue("Fantasy");
+        genreComboBox.getItems().addAll("Sách", "Sách tự giúp", "Tiểu thuyết", "Truyện cổ tích", "Truyện ngắn", "Truyện thiếu nhi", "Truyện tranh", "Văn học cổ điển");
+        genreComboBox.setValue("Văn học cổ điển");
         bookList = FXCollections.observableArrayList();
     }
     
@@ -82,22 +85,25 @@ public class BookController extends BaseController implements Initializable {
     
     @FXML
     void searchBooks(ActionEvent event) {
-
         String id = idTextField.getText();
         String title = titleTextField.getText();
         String author = authorTextField.getText();
         String publisher = publisherTextField.getText();
         String genre = genreComboBox.getValue();
         Integer publishYear = !publicationYearTextField.getText().isEmpty() ? Integer.parseInt(publicationYearTextField.getText()) : null;
-        
-        // Call a method to search for books in database using search criteria
-        ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishYear));
-       
 
-        // Hiển thị sách đã được tìm kiếm lên tableview
-        bookList.clear();
-        bookList.addAll(searchedBooks);
-        tableView.setItems(bookList);
+        try {
+            // Call a method to search for books in database using search criteria
+            List<Book> searchedBooks = BookDAO.searchBooks(id, title, author, publisher, genre, publishYear);
+
+            // Hiển thị sách đã được tìm kiếm lên tableview
+            bookList.clear();
+            bookList.addAll(searchedBooks);
+            tableView.setItems(bookList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // handle exception
+        }
     }
 
     //CHức năng chỉnh sửa sách
@@ -161,7 +167,7 @@ public class BookController extends BaseController implements Initializable {
 
     //Chức năng thêm sách
     @FXML
-    void addBook(ActionEvent event) {
+    void addBook(ActionEvent event) throws SQLException {
         try {
             String id = idTextField.getText();
             String title = titleTextField.getText();
@@ -172,10 +178,14 @@ public class BookController extends BaseController implements Initializable {
             String location = locationTextField.getText();
             String status = quantity == 0 ? "Không có sẵn" : "Có sẵn";
             String genre = genreComboBox.getValue();
-    
+
+            // Thêm sách vào database
             Book newBook = new Book(id, title, author, publisher, publicationYear, quantity, genre, status, location);
+            BookDAO.addBook(newBook);
+
+            // Thêm sách vào danh sách hiển thị trên giao diện ứng dụng
             App.books.add(newBook);
-    
+
             //Refresh các textfield
             idTextField.setText("");
             titleTextField.setText("");
@@ -195,6 +205,7 @@ public class BookController extends BaseController implements Initializable {
         }
     }
 
+// Phương thức xóa sách
     @FXML
     void deleteBook(ActionEvent event) {
         Book selectedBook = tableView.getSelectionModel().getSelectedItem();
@@ -212,13 +223,24 @@ public class BookController extends BaseController implements Initializable {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            // Xóa sách khỏi cơ sở dữ liệu 
+            // Xóa sách khỏi cơ sở dữ liệu
+            try {
+                BookDAO.deleteBook(selectedBook);
+            } catch (SQLException e) {
+                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
+                errorAlert.setTitle("Lỗi xóa sách");
+                errorAlert.setHeaderText(null);
+                errorAlert.showAndWait();
+                e.printStackTrace();
+                return;
+            }
+            // Xóa sách khỏi danh sách hiển thị trên giao diện ứng dụng
             App.books.remove(selectedBook);
             //Tạo dialog thông báo xóa sách thành công
-            Alert sucessAlert = new Alert(AlertType.INFORMATION, "Sách đã được xóa thành công.", ButtonType.OK);
-            sucessAlert.setTitle("Xóa sách thành công");
-            sucessAlert.setHeaderText(null);
-            sucessAlert.showAndWait();
+            Alert successAlert = new Alert(AlertType.INFORMATION, "Sách đã được xóa thành công.", ButtonType.OK);
+            successAlert.setTitle("Xóa sách thành công");
+            successAlert.setHeaderText(null);
+            successAlert.showAndWait();
         }
     }
 }
