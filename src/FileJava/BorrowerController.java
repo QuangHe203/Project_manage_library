@@ -32,7 +32,7 @@ public class BorrowerController extends BaseController implements Initializable{
     @FXML private TableColumn<Borrower, String> emailColumn;
     @FXML private TableColumn<Borrower, String> typeColumn;
     @FXML private TableColumn<Borrower, LocalDate> lastColumn;
-    @FXML private ChoiceBox<String> typeComboBox;
+   
     //Tạo một bookList mới dành cho việc hiển thị những sách được tìm
     private ObservableList<Borrower> borrowerList;
 
@@ -60,6 +60,7 @@ public class BorrowerController extends BaseController implements Initializable{
     @FXML private TextField phoneNumberTextField;
     @FXML private DatePicker dateOfBirthTextField;
     @FXML private TextField emailTextField;
+    @FXML private ChoiceBox<String> typeComboBox;
 
     public ObservableList<Borrower> searchBorrowers(String id, String fullName, String phoneNumber, LocalDate dateOfBirth, String email, String type) {
         ObservableList<Borrower> result = FXCollections.observableArrayList();
@@ -67,8 +68,8 @@ public class BorrowerController extends BaseController implements Initializable{
             if (borrower.getId().contains(id)
                 && borrower.getFullName().contains(fullName)
                 && borrower.getPhoneNumber().contains(phoneNumber)
-                && borrower.getDateOfBirth().equals(dateOfBirth)
-                && borrower.getEmail().equals(email)
+                && (dateOfBirth == null || borrower.getDateOfBirth().equals(dateOfBirth))
+                && borrower.getEmail().contains(email)
                 && borrower.getType().equals(type)) {
                 result.add(borrower);
             }
@@ -219,6 +220,4 @@ public class BorrowerController extends BaseController implements Initializable{
             successAlert.showAndWait();
         }
     }
-
-
 }

@@ -91,6 +91,7 @@ public class BookController extends BaseController implements Initializable {
         String publisher = publisherTextField.getText();
         String genre = genreComboBox.getValue();
         Integer publishYear = !publicationYearTextField.getText().isEmpty() ? Integer.parseInt(publicationYearTextField.getText()) : null;
+<<<<<<< HEAD
 
         try {
             // Call a method to search for books in database using search criteria
@@ -104,6 +105,16 @@ public class BookController extends BaseController implements Initializable {
             e.printStackTrace();
             // handle exception
         }
+=======
+        
+        // Call a method to search for books in database using search criteria
+        ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishYear));
+       
+        // Hiển thị sách đã được tìm kiếm lên tableview
+        bookList.clear();
+        bookList.addAll(searchedBooks);
+        tableView.setItems(bookList);
+>>>>>>> 310dfcaed551f7bec8378786fbaab9ab69fb79a9
     }
 
     //CHức năng chỉnh sửa sách
