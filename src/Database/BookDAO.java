@@ -93,4 +93,24 @@ public class BookDAO {
     
         return result;
     }
+// Phương thức chỉnh sửa sách
+    public static void updateBook(Book book) throws SQLException {
+        String sql = "UPDATE books SET title = ?, author = ?, publisher = ?, publicationYear = ?, quantity = ?, genre = ?, status = ?, location = ? WHERE id = ?";
+    
+        try (Connection conn = MySQLConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, book.getTitle());
+            stmt.setString(2, book.getAuthor());
+            stmt.setString(3, book.getPublisher());
+            stmt.setInt(4, book.getPublicationYear());
+            stmt.setInt(5, book.getQuantity());
+            stmt.setString(6, book.getGenre());
+            stmt.setString(7, book.getStatus());
+            stmt.setString(8, book.getLocation());
+            stmt.setString(9, book.getId());
+    
+            stmt.executeUpdate();
+        }
+    }
+    
 }
