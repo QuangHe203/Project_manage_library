@@ -3,7 +3,6 @@ package FileJava;
 import Database.BookDAO;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -91,21 +90,6 @@ public class BookController extends BaseController implements Initializable {
         String publisher = publisherTextField.getText();
         String genre = genreComboBox.getValue();
         Integer publishYear = !publicationYearTextField.getText().isEmpty() ? Integer.parseInt(publicationYearTextField.getText()) : null;
-<<<<<<< HEAD
-
-        try {
-            // Call a method to search for books in database using search criteria
-            List<Book> searchedBooks = BookDAO.searchBooks(id, title, author, publisher, genre, publishYear);
-
-            // Hiển thị sách đã được tìm kiếm lên tableview
-            bookList.clear();
-            bookList.addAll(searchedBooks);
-            tableView.setItems(bookList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // handle exception
-        }
-=======
         
         // Call a method to search for books in database using search criteria
         ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishYear));
@@ -114,7 +98,6 @@ public class BookController extends BaseController implements Initializable {
         bookList.clear();
         bookList.addAll(searchedBooks);
         tableView.setItems(bookList);
->>>>>>> 310dfcaed551f7bec8378786fbaab9ab69fb79a9
     }
 
     //CHức năng chỉnh sửa sách
