@@ -42,6 +42,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
         borrowers.addAll(BorrowerData.generateBorrowers());
+        books.addAll(BookData.generateBooks());
         loadBooksFromDatabase();
         launch(args);
     }
