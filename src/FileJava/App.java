@@ -43,10 +43,7 @@ public class App extends Application {
     public static void main(String[] args) {
         borrowers.addAll(BorrowerData.generateBorrowers());
         books.addAll(BookData.generateBooks());
-<<<<<<< HEAD
         cards.addAll(CardData.generateCards());
-=======
->>>>>>> dafd9721a6119c32ef860cb22d45480cbff9c586
         loadBooksFromDatabase();
         launch(args);
     }

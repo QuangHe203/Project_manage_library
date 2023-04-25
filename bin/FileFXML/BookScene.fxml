@@ -81,7 +81,7 @@
          <children>
             <HBox layoutX="593.0" layoutY="21.0" prefHeight="26.0" prefWidth="158.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#addBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " />
+                  <Button mnemonicParsing="false" fx:id="addButton" onAction="#addBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm " />
                   <Button fx:id="editButton" mnemonicParsing="false" onAction="#editBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
                   <Button mnemonicParsing="false" onAction="#deleteBook" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" />
                </children>
@@ -112,7 +112,7 @@
                   <Label text="Nhà xuất bản:" GridPane.rowIndex="3" />
                   <Label text="Năm xuất bản:" GridPane.columnIndex="3" />
                   <Label text="Thể loại:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField fx:id="idTextField" GridPane.columnIndex="1" />
+                  <TextField fx:id="idTextField" GridPane.columnIndex="1"/>
                   <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="authorTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="publisherTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
