@@ -1,79 +1,78 @@
 package FileJava;
 
-import java.awt.*;
-import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 
-import javafx.event.ActionEvent;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.event.ActionEvent;
 
-public class GiveBackController extends BaseController {
+public class GiveBackController extends BaseController implements Initializable {
+    //Tạo tableview
+    @FXML private TableView<Card> tableView;
+    @FXML private TableColumn<Card, String> idCardColumn;
+    @FXML private TableColumn<Card, String> idBorrowerColumn;
+    @FXML private TableColumn<Card, LocalDate> borrowDateColumn;
+    @FXML private TableColumn<Card, LocalDate> returnDateColumn;
 
-    @FXML private TextField cardIdField;
-    @FXML private TextField borrowerIdField;
-    @FXML private DatePicker borrowDateField;
-    @FXML private DatePicker returnDueDateField;
+    private ObservableList<Card> cardList;
 
-    // Nhập thông tin thẻ mượn sách, ID người mượn, ngày mượn, ngày hẹn trả
-    @FXML
-    public void processReturn(ActionEvent event) throws IOException {
-        String cardId = cardIdField.getText();
-        String borrowerId = borrowerIdField.getText();
-        LocalDate borrowDate = borrowDateField.getValue();
-        LocalDate returnDueDate = returnDueDateField.getValue();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        idCardColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCardId()));
+        idBorrowerColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBorrowerId()));
+        borrowDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBorrowDate()));
+        returnDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getReturnDate()));
+        
 
-        if (validateInput(cardId, borrowerId, borrowDate, returnDueDate)) {
-            // Xử lý việc trả sách ở đây
+        //Khởi tạo giá trị cho tableView
+        tableView.setItems(App.cards);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Thông báo");
-            alert.setHeaderText(null);
-            alert.setContentText("Trả sách thành công!");
-            alert.showAndWait();
-
-            // Chuyển về trang chủ sau khi trả sách thành công
-            switchToHome(event);
-        }
+        cardList = FXCollections.observableArrayList();
     }
 
-    // kiểm tra và thông báo nếu nhập sai hoặc thiếu thông tin
-    private boolean validateInput(String cardId, String borrowerId, LocalDate borrowDate, LocalDate returnDueDate) {
-        String errorMessage = "";
+    @FXML private TextField idcardTextField;
+    @FXML private TextField idBorrowerTextField;
+    @FXML private DatePicker borrowDateTextField;
+    @FXML private DatePicker returnDateTextField;
 
-        if (cardId == null || cardId.trim().isEmpty()) {
-            errorMessage += "Vui lòng nhập ID thẻ mượn sách\n";
+    public ObservableList<Card> searchCards(String idCard, String idBorrower, LocalDate borrowDate, LocalDate returnDate) {
+        ObservableList<Card> result = FXCollections.observableArrayList();
+        for (Card card : App.cards) {
+            if (card.getCardId().contains(idCard)
+                && card.getBorrowerId().contains(idBorrower)
+                && (borrowDate == null || card.getBorrowDate().equals(borrowDate))
+                && (returnDate == null || card.getBorrowDate().equals(returnDate))
+                ) {
+                result.add(card);
+            }
         }
+        return result;
+    }
 
-        if (borrowerId == null || borrowerId.trim().isEmpty()) {
-            errorMessage += "Vui lòng nhập ID người mượn sách\n";
-        }
+    @FXML
+    void searchCards(ActionEvent event) {
 
-        if (borrowDate == null) {
-            errorMessage += "Vui lòng chọn ngày mượn\n";
-        }
+        String idCard = idcardTextField.getText();
+        String idBorrower = idBorrowerTextField.getText();
+        LocalDate borrowDate = borrowDateTextField.getValue();
+        LocalDate returnDate = returnDateTextField.getValue();
 
-        if (returnDueDate == null) {
-            errorMessage += "Vui lòng chọn ngày hẹn trả\n";
-        }
+        // Call a method to search for cards in the database using search criteria
+        ObservableList<Card> searchedCards = FXCollections.observableList(searchCards(idCard, idBorrower, borrowDate, returnDate));
 
-        if (returnDueDate != null && returnDueDate.isBefore(borrowDate)) {
-            errorMessage += "Ngày hẹn trả không hợp lệ\n";
-        }
-
-        if (errorMessage.isEmpty()) {
-            return true;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Lỗi");
-            alert.setHeaderText(null);
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
-            return false;
-        }
+        // Hiển thị thẻ đã được tìm kiếm lên tableview
+        cardList.clear();
+        cardList.addAll(searchedCards);
+        tableView.setItems(cardList);
     }
 }
-
-
-

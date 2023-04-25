@@ -9,8 +9,8 @@
             "name": "App",
             "request": "launch",
             "mainClass": "FileJava.App",
-            "projectName": "Project_manage_library-1_295514db",
-            "vmArgs": "--module-path \"D:/nonsense/openjfx-20_windows-x64_bin-sdk/javafx-sdk-20/lib\" --add-modules javafx.controls,javafx.fxml"
+            "projectName": "Project_manage_library_2c343a0",
+            "vmArgs": "--module-path \"D:/Java/javafx-sdk-19.0.2.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",

@@ -100,22 +100,21 @@
                   <Label text="ID người mượn sách:" GridPane.rowIndex="1" />
                   <Label text="Ngày mượn:" GridPane.columnIndex="3" />
                   <Label text="Ngày hẹn trả:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <DatePicker prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" />
-                  <DatePicker prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <TextField GridPane.columnIndex="1" fx:id="idCardTextField"/>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="idBorrowerTextField"/>
+                  <DatePicker prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" fx:id="borrowDateTextField"/>
+                  <DatePicker prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="4" GridPane.rowIndex="1" fx:id="returnDateTextField"/>
                </children>
             </GridPane>
-            <TableView layoutY="180.0" prefHeight="323.0" prefWidth="766.0">
+            <TableView layoutY="180.0" prefHeight="323.0" prefWidth="766.0" fx:id="tableView">
                <columns>
-                  <TableColumn prefWidth="120.00003051757812" text="ID thẻ " />
-                  <TableColumn prefWidth="124.79998779296875" text="ID người mượn" />
-                  <TableColumn prefWidth="202.39999389648438" text="Ngày mượn" />
-                  <TableColumn prefWidth="222.39996337890625" text="Ngày hẹn trả" />
-                  <TableColumn prefWidth="92.7999267578125" text="Chọn" />
+                  <TableColumn prefWidth="120.00003051757812" text="ID thẻ " fx:id="idCardColumn"/>
+                  <TableColumn prefWidth="124.79998779296875" text="ID người mượn" fx:id="idBorrowerColumn"/>
+                  <TableColumn prefWidth="202.39999389648438" text="Ngày mượn" fx:id="borrowDateColumn"/>
+                  <TableColumn prefWidth="222.39996337890625" text="Ngày hẹn trả" fx:id="returnDateColumn"/>
                </columns>
             </TableView>
-            <Button layoutX="353.0" layoutY="143.0" mnemonicParsing="false" style="-fx-background-color: #0000FF;" text="Tra cứu" />
+            <Button layoutX="353.0" layoutY="143.0" mnemonicParsing="false" style="-fx-background-color: #0000FF;" text="Tra cứu" onAction="#searchCards"/>
          </children></AnchorPane>
    </children>
 </AnchorPane>

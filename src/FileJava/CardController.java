@@ -17,18 +17,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 
 public class CardController extends BaseController {
 
     @FXML private TextField cardIdTextField;
     @FXML private TextField borrowerIdTextField;
+    @FXML private TextField bookIdTextField;
     @FXML private DatePicker borrowDateDatePicker;
     @FXML private DatePicker returnDateDatePicker;
 
     @FXML private TableView<Book> booksTableView;
     @FXML private TableColumn<Book, Integer> indexColumn;
-    @FXML private TableColumn<Book, String> inputBookIdColumn;
+    @FXML private TableColumn<Book, String> bookIdColumn;
     @FXML private TableColumn<Book, String> titleColumn;
     @FXML private TableColumn<Book, String> authorColumn;
     @FXML private TableColumn<Book, String> publisherColumn;
@@ -42,69 +44,15 @@ public class CardController extends BaseController {
     public void initialize() {
         borrowedBooks = FXCollections.observableArrayList();
 
-        inputBookIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        //inputBookIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         indexColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(booksTableView.getItems().indexOf(cellData.getValue()) + 1).asObject());
+        bookIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         titleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
         authorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuthor()));
         publisherColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPublisher()));
         publicationYearColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPublicationYear()).asObject());
         genreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenre()));
 
-        inputBookIdColumn.setCellFactory(param -> {
-            TextField bookIdField = new TextField();
-        
-            TableCell<Book, String> cell = new TableCell<>() {
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-        
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(bookIdField);
-                    }
-                }
-            };
-        
-            bookIdField.setOnAction(event -> {
-                String newBookId = bookIdField.getText();
-        
-                // Kiểm tra xem ID sách mới đã tồn tại hay chưa
-                if (bookIds.contains(newBookId)) {
-                    Alert alert = new Alert(AlertType.INFORMATION, "ID sách đã được sử dụng", ButtonType.OK);
-                    alert.setTitle("ID sách đã được sử dụng");
-                    alert.setHeaderText(null);
-                    alert.showAndWait();
-                    return;
-                }
-        
-                // Lưu trữ ID sách mới vào HashSet
-                bookIds.add(newBookId);
-        
-                // Tìm sách dựa trên newBookId
-                Book bookToBorrow = findBookById(newBookId);
-        
-                // Nếu tìm thấy sách, cập nhật thông tin sách trong TableView
-                if (bookToBorrow != null) {
-                    updateBookInformation(cell.getIndex(), bookToBorrow);
-        
-                    // Hiển thị ID của cuốn sách vừa tìm được
-                    bookIdField.setText(newBookId);
-                    // Kiểm tra xem dòng trống cuối cùng có phải là dòng cuối cùng trong TableView không
-                    if (cell.getIndex() == borrowedBooks.size() - 1) {
-                        borrowedBooks.add(new Book()); // Thêm một dòng trống mới vào cuối
-                    }
-                } else {
-                    Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy sách", ButtonType.OK);
-                    alert.setTitle("Không tìm thấy sách");
-                    alert.setHeaderText(null);
-                    alert.showAndWait();
-                    return;
-                }
-            });
-        
-            return cell;
-        });
 
         deleteColumn.setCellFactory(param -> new TableCell<Book, Void>() {
             private final Button deleteButton = new Button("Xóa");
@@ -129,9 +77,12 @@ public class CardController extends BaseController {
             }
         });
         
+        bookIdTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                addBookToBorrowList();
+            }
+        });
         
-        
-        borrowedBooks.add(new Book());
         booksTableView.setItems(borrowedBooks);
     }
 
@@ -143,14 +94,24 @@ public class CardController extends BaseController {
         }
         return null;
     }
-    
-    private void updateBookInformation(int index, Book book) {
-        borrowedBooks.set(index, book);
-    }
 
     @FXML
-    public void addBookToBorrowList(Book book) {
-        borrowedBooks.add(book);
+    public void addBookToBorrowList() {
+        String bookId = bookIdTextField.getText();
+        if (!bookId.isEmpty()) {
+            Book book = findBookById(bookId);
+            if (book != null) {
+                borrowedBooks.add(book);
+                bookIdTextField.clear();
+            } else {
+                // Hiển thị thông báo nếu không tìm thấy sách
+                Alert alert = new Alert(AlertType.INFORMATION, "Không tìm tháy sách có ID tương ứng", ButtonType.OK);
+                alert.setTitle("Không tìm thấy sách");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+            return;
+            }
+        }
     }
 
     @FXML

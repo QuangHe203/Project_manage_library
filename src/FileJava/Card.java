@@ -22,12 +22,12 @@ public class Card {
         this.returnDate = returnDate;
     }
 
-    public String getBorrowCardId() {
+    public String getCardId() {
         return cardId;
     }
 
-    public void setBorrowCardId(String borrowCardId) {
-        this.cardId = borrowCardId;
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
 
     public String getBorrowerId() {
