@@ -138,27 +138,45 @@ public class BookController extends BaseController implements Initializable {
         bookToEdit.setPublisher(publisherTextField.getText());
         bookToEdit.setGenre(genreComboBox.getValue());
         bookToEdit.setPublicationYear(Integer.parseInt(publicationYearTextField.getText()));
-
-        // Đồng bộ hóa với cơ sở dữ liệu (ví dụ: gọi phương thức cập nhật cơ sở dữ liệu)
-
-        // Cập nhật giao diện người dùng
-        tableView.refresh();
-
-        // Thay đổi nút Lưu thành nút Chỉnh sửa
-        editButton.setText("Chỉnh sửa");
-        editButton.setOnAction(this::editBook);
-
-        //Refresh các textfield
-        idTextField.setText("");
-        titleTextField.setText("");
-        authorTextField.setText("");
-        publisherTextField.setText("");
-        publicationYearTextField.setText("");
-        quantityTextField.setText("");
-        locationTextField.setText("");
-        genreComboBox.setValue(null);
+        bookToEdit.setQuantity(Integer.parseInt(quantityTextField.getText()));
+        bookToEdit.setLocation(locationTextField.getText());
+        
+        try {
+            // cập nhật thông tin sách
+            BookDAO.updateBook(bookToEdit);
+            
+            // nếu thành công, thực hiện các hành động cần thiết
+            tableView.refresh();
+            
+            // hiển thị thông báo cho người dùng biết cập nhật thành công
+            Alert alert = new Alert(AlertType.INFORMATION, "Đã cập nhật sách thành công!", ButtonType.OK);
+            alert.setTitle("Thành công");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            
+            // Thay đổi nút Lưu thành nút Chỉnh sửa
+            editButton.setText("Chỉnh sửa");
+            editButton.setOnAction(this::editBook);
+            
+            //Refresh các textfield
+            idTextField.setText("");
+            titleTextField.setText("");
+            authorTextField.setText("");
+            publisherTextField.setText("");
+            publicationYearTextField.setText("");
+            quantityTextField.setText("");
+            locationTextField.setText("");
+            genreComboBox.setValue(null);
+            
+        } catch (Exception ex) {
+            // nếu thất bại, hiển thị thông báo lỗi cho người dùng
+            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi cập nhật sách. Vui lòng thử lại!", ButtonType.OK);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
-
+    }
+    
     //Chức năng thêm sách
     @FXML
     void addBook(ActionEvent event) throws SQLException {
