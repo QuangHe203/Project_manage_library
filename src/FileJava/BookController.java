@@ -117,6 +117,7 @@ public class BookController extends BaseController implements Initializable {
 
         // Hiển thị thông tin sách hiện tại trong các trường văn bản và hộp lựa chọn
         idTextField.setText(selectedBook.getId());
+        idTextField.setEditable(false);
         titleTextField.setText(selectedBook.getTitle());
         authorTextField.setText(selectedBook.getAuthor());
         publisherTextField.setText(selectedBook.getPublisher());
@@ -160,6 +161,7 @@ public class BookController extends BaseController implements Initializable {
             
             //Refresh các textfield
             idTextField.setText("");
+            idTextField.setEditable(true);
             titleTextField.setText("");
             authorTextField.setText("");
             publisherTextField.setText("");
@@ -177,6 +179,8 @@ public class BookController extends BaseController implements Initializable {
         }
     }
     
+    @FXML private Button addButton;
+
     //Chức năng thêm sách
     @FXML
     void addBook(ActionEvent event) throws SQLException {
@@ -217,7 +221,7 @@ public class BookController extends BaseController implements Initializable {
         }
     }
 
-// Phương thức xóa sách
+    // Phương thức xóa sách
     @FXML
     void deleteBook(ActionEvent event) {
         Book selectedBook = tableView.getSelectionModel().getSelectedItem();
