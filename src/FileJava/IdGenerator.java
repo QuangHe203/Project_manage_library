@@ -1,13 +1,7 @@
 package FileJava;
 
-import java.util.List;
-
 public class IdGenerator {
-    private static int numberBook = 0;
-
-    public static void initializeNumberBook(List<Book> books) {
-        numberBook = books.size();
-    }
+    private static int numberBook = 20;
 
     public static String generateNextBookId() {
         if (numberBook >= 999) {
@@ -19,11 +13,7 @@ public class IdGenerator {
         return bookId;
     }
 
-    private static int numberBorrower = 0;
-
-    public static void initializeNumberOfBorrower(List<Borrower> borrowers) {
-        numberBorrower = borrowers.size();
-    }
+    private static int numberBorrower = 20;
 
     public static String generateNextBorrowerId() {
         if (numberBorrower >= 999) {
@@ -35,11 +25,7 @@ public class IdGenerator {
         return borrowerID;
     }
 
-    private static int numberCard = 0;
-
-    public static void initializeLastNumber(List<Card> cards) {
-        numberCard = cards.size();
-    }
+    private static int numberCard = 3;
 
     public static String generateNextCardId() {
         if (numberCard >= 999) {
