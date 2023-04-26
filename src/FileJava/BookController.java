@@ -21,20 +21,28 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 public class BookController extends BaseController implements Initializable {
 
-    //Tạo tableview
-    @FXML private TableView<Book> tableView;
-    @FXML private TableColumn<Book, String> idColumn;
-    @FXML private TableColumn<Book, String> titleColumn;
-    @FXML private TableColumn<Book, String> authorColumn;
-    @FXML private TableColumn<Book, String> publisherColumn;
-    @FXML private TableColumn<Book, Integer> publicationYearColumn;
-    @FXML private TableColumn<Book, String> genreColumn;
-    @FXML private TableColumn<Book, String> locationColumn;
-    @FXML private TableColumn<Book, String> statusColumn;
-    //Tạo một bookList mới dành cho việc hiển thị những sách được tìm
+    // Tạo tableview
+    @FXML
+    private TableView<Book> tableView;
+    @FXML
+    private TableColumn<Book, String> idColumn;
+    @FXML
+    private TableColumn<Book, String> titleColumn;
+    @FXML
+    private TableColumn<Book, String> authorColumn;
+    @FXML
+    private TableColumn<Book, String> publisherColumn;
+    @FXML
+    private TableColumn<Book, Integer> publicationYearColumn;
+    @FXML
+    private TableColumn<Book, String> genreColumn;
+    @FXML
+    private TableColumn<Book, String> locationColumn;
+    @FXML
+    private TableColumn<Book, String> statusColumn;
+    // Tạo một bookList mới dành cho việc hiển thị những sách được tìm
     private ObservableList<Book> bookList;
 
     @Override
@@ -43,31 +51,43 @@ public class BookController extends BaseController implements Initializable {
         titleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
         authorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuthor()));
         publisherColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPublisher()));
-        publicationYearColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPublicationYear()));
+        publicationYearColumn
+                .setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPublicationYear()));
         genreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenre()));
         locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLocation()));
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
 
-        //Khởi tạo giá trị cho tableView
+        // Khởi tạo giá trị cho tableView
         tableView.setItems(App.books);
 
-        genreComboBox.getItems().addAll("Sách", "Sách tự giúp", "Tiểu thuyết", "Truyện cổ tích", "Truyện ngắn", "Truyện thiếu nhi", "Truyện tranh", "Văn học cổ điển");
+        genreComboBox.getItems().addAll("Sách", "Sách tự giúp", "Tiểu thuyết", "Truyện cổ tích", "Truyện ngắn",
+                "Truyện thiếu nhi", "Truyện tranh", "Văn học cổ điển");
         genreComboBox.setValue("Văn học cổ điển");
         bookList = FXCollections.observableArrayList();
     }
-    
-    //Chức năng tìm kiếm sách
-    @FXML private TextField idTextField;
-    @FXML private TextField titleTextField;
-    @FXML private TextField authorTextField;
-    @FXML private TextField publisherTextField;
-    @FXML private TextField publicationYearTextField;
-    @FXML private TextField quantityTextField;
-    @FXML private ChoiceBox<String> genreComboBox;  
-    @FXML private TextField statusTextField;
-    @FXML private TextField locationTextField;
-    
-    public ObservableList<Book> searchBooks(String id, String title, String author, String publisher, String genre, Integer publishYear) {
+
+    // Chức năng tìm kiếm sách
+    @FXML
+    private TextField idTextField;
+    @FXML
+    private TextField titleTextField;
+    @FXML
+    private TextField authorTextField;
+    @FXML
+    private TextField publisherTextField;
+    @FXML
+    private TextField publicationYearTextField;
+    @FXML
+    private TextField quantityTextField;
+    @FXML
+    private ChoiceBox<String> genreComboBox;
+    @FXML
+    private TextField statusTextField;
+    @FXML
+    private TextField locationTextField;
+
+    public ObservableList<Book> searchBooks(String id, String title, String author, String publisher, String genre,
+            Integer publishYear) {
         ObservableList<Book> result = FXCollections.observableArrayList();
         for (Book book : App.books) {
             if (book.getId().contains(id)
@@ -81,7 +101,7 @@ public class BookController extends BaseController implements Initializable {
         }
         return result;
     }
-    
+
     @FXML
     void searchBooks(ActionEvent event) {
         String id = idTextField.getText();
@@ -89,19 +109,23 @@ public class BookController extends BaseController implements Initializable {
         String author = authorTextField.getText();
         String publisher = publisherTextField.getText();
         String genre = genreComboBox.getValue();
-        Integer publishYear = !publicationYearTextField.getText().isEmpty() ? Integer.parseInt(publicationYearTextField.getText()) : null;
-        
+        Integer publishYear = !publicationYearTextField.getText().isEmpty()
+                ? Integer.parseInt(publicationYearTextField.getText())
+                : null;
+
         // Call a method to search for books in database using search criteria
-        ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishYear));
-       
+        ObservableList<Book> searchedBooks = FXCollections
+                .observableList(searchBooks(id, title, author, publisher, genre, publishYear));
+
         // Hiển thị sách đã được tìm kiếm lên tableview
         bookList.clear();
         bookList.addAll(searchedBooks);
         tableView.setItems(bookList);
     }
 
-    //CHức năng chỉnh sửa sách
-    @FXML private Button editButton;
+    // CHức năng chỉnh sửa sách
+    @FXML
+    private Button editButton;
 
     @FXML
     void editBook(ActionEvent event) {
@@ -141,25 +165,25 @@ public class BookController extends BaseController implements Initializable {
         bookToEdit.setPublicationYear(Integer.parseInt(publicationYearTextField.getText()));
         bookToEdit.setQuantity(Integer.parseInt(quantityTextField.getText()));
         bookToEdit.setLocation(locationTextField.getText());
-        
+
         try {
             // cập nhật thông tin sách
             BookDAO.updateBook(bookToEdit);
-            
+
             // nếu thành công, thực hiện các hành động cần thiết
             tableView.refresh();
-            
+
             // hiển thị thông báo cho người dùng biết cập nhật thành công
             Alert alert = new Alert(AlertType.INFORMATION, "Đã cập nhật sách thành công!", ButtonType.OK);
             alert.setTitle("Thành công");
             alert.setHeaderText(null);
             alert.showAndWait();
-            
+
             // Thay đổi nút Lưu thành nút Chỉnh sửa
             editButton.setText("Chỉnh sửa");
             editButton.setOnAction(this::editBook);
-            
-            //Refresh các textfield
+
+            // Refresh các textfield
             idTextField.setText("");
             idTextField.setEditable(true);
             titleTextField.setText("");
@@ -169,7 +193,7 @@ public class BookController extends BaseController implements Initializable {
             quantityTextField.setText("");
             locationTextField.setText("");
             genreComboBox.setValue(null);
-            
+
         } catch (Exception ex) {
             // nếu thất bại, hiển thị thông báo lỗi cho người dùng
             Alert alert = new Alert(AlertType.ERROR, "Lỗi khi cập nhật sách. Vui lòng thử lại!", ButtonType.OK);
@@ -178,47 +202,70 @@ public class BookController extends BaseController implements Initializable {
             alert.showAndWait();
         }
     }
-    
-    @FXML private Button addButton;
 
-    //Chức năng thêm sách
     @FXML
-    void addBook(ActionEvent event) throws SQLException {
+    private Button addButton;
+
+    // Chức năng thêm sách
+    @FXML
+    void addBook(ActionEvent event) {
+        String id = IdGenerator.generateNextBookId();
+        idTextField.setText(id);
+        idTextField.setEditable(false);
+
+        addButton.setText("Lưu");
+        addButton.setOnAction(e -> saveNewBook(e));
+
+    }
+
+    @FXML
+    void saveNewBook(ActionEvent event) {
+        String id = idTextField.getText();
+        String title = titleTextField.getText();
+        String author = authorTextField.getText();
+        String publisher = publisherTextField.getText();
+        int publicationYear;
+        int quantity;
         try {
-            String id = idTextField.getText();
-            String title = titleTextField.getText();
-            String author = authorTextField.getText();
-            String publisher = publisherTextField.getText();
-            int publicationYear = Integer.parseInt(publicationYearTextField.getText());
-            int quantity = Integer.parseInt(quantityTextField.getText());
-            String location = locationTextField.getText();
-            String status = quantity == 0 ? "Không có sẵn" : "Có sẵn";
-            String genre = genreComboBox.getValue();
-
-            // Thêm sách vào database
-            Book newBook = new Book(id, title, author, publisher, publicationYear, quantity, genre, status, location);
-            BookDAO.addBook(newBook);
-
-            // Thêm sách vào danh sách hiển thị trên giao diện ứng dụng
-            App.books.add(newBook);
-
-            //Refresh các textfield
-            idTextField.setText("");
-            titleTextField.setText("");
-            authorTextField.setText("");
-            publisherTextField.setText("");
-            publicationYearTextField.setText("");
-            quantityTextField.setText("");
-            locationTextField.setText("");
-            genreComboBox.setValue(null);
-
+            publicationYear = Integer.parseInt(publicationYearTextField.getText());
+            quantity = Integer.parseInt(quantityTextField.getText());
         } catch (NumberFormatException e) {
-                //Thông báo khi 
-                Alert alert = new Alert(AlertType.INFORMATION, "Vui lòng kiểm tra lại các trường thông tin", ButtonType.OK);
-                alert.setTitle("Thông tin không hợp lệ");
-                alert.setHeaderText(null);
-                alert.showAndWait();
+            Alert alert = new Alert(AlertType.INFORMATION,
+                    "Vui lòng kiểm tra lại các trường thông tin năm xuất bản và số lượng", ButtonType.OK);
+            alert.setTitle("Thông tin không hợp lệ");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
         }
+        String location = locationTextField.getText();
+        String status = quantity == 0 ? "Không có sẵn" : "Có sẵn";
+        String genre = genreComboBox.getValue();
+
+        Book newBook = new Book(id, title, author, publisher, publicationYear, quantity, genre, status, location);
+        // Thêm sách vào cơ sở dữ liệu
+        try {
+            BookDAO.addBook(newBook);
+        } catch (SQLException ex) {
+            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu sách mới, vui lòng thử lại", ButtonType.OK);
+            alert.setTitle("Lỗi cơ sở dữ liệu");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+
+        // Làm mới các trường nhập liệu
+        idTextField.setText("");
+        idTextField.setEditable(true);
+        titleTextField.setText("");
+        authorTextField.setText("");
+        publisherTextField.setText("");
+        publicationYearTextField.setText("");
+        quantityTextField.setText("");
+        locationTextField.setText("");
+        genreComboBox.setValue(null);
+        // Đặt lại hành động của nút "Thêm"
+        addButton.setText("Thêm");
+        addButton.setOnAction(this::addBook);
     }
 
     // Phương thức xóa sách
@@ -233,7 +280,8 @@ public class BookController extends BaseController implements Initializable {
             return;
         }
 
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa sách này không?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa sách này không?", ButtonType.YES,
+                ButtonType.NO);
         alert.setTitle("Xác nhận xóa");
         alert.setHeaderText(null);
         alert.showAndWait();
@@ -243,7 +291,8 @@ public class BookController extends BaseController implements Initializable {
             try {
                 BookDAO.deleteBook(selectedBook);
             } catch (SQLException e) {
-                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
+                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.",
+                        ButtonType.OK);
                 errorAlert.setTitle("Lỗi xóa sách");
                 errorAlert.setHeaderText(null);
                 errorAlert.showAndWait();
@@ -252,7 +301,7 @@ public class BookController extends BaseController implements Initializable {
             }
             // Xóa sách khỏi danh sách hiển thị trên giao diện ứng dụng
             App.books.remove(selectedBook);
-            //Tạo dialog thông báo xóa sách thành công
+            // Tạo dialog thông báo xóa sách thành công
             Alert successAlert = new Alert(AlertType.INFORMATION, "Sách đã được xóa thành công.", ButtonType.OK);
             successAlert.setTitle("Xóa sách thành công");
             successAlert.setHeaderText(null);
