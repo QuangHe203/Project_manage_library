@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 public class BookController extends BaseController implements Initializable {
 
     // Tạo tableview
+
     @FXML
     private TableView<Book> tableView;
     @FXML
@@ -253,7 +254,7 @@ public class BookController extends BaseController implements Initializable {
             return;
         }
 
-        // Làm mới các trường nhập liệu
+        // Refresh lại các trường thông tin
         idTextField.setText("");
         idTextField.setEditable(true);
         titleTextField.setText("");
@@ -263,7 +264,7 @@ public class BookController extends BaseController implements Initializable {
         quantityTextField.setText("");
         locationTextField.setText("");
         genreComboBox.setValue(null);
-        // Đặt lại hành động của nút "Thêm"
+        // Đặt lại hành động của nút 
         addButton.setText("Thêm");
         addButton.setOnAction(this::addBook);
     }
@@ -280,8 +281,7 @@ public class BookController extends BaseController implements Initializable {
             return;
         }
 
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa sách này không?", ButtonType.YES,
-                ButtonType.NO);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa sách này không?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Xác nhận xóa");
         alert.setHeaderText(null);
         alert.showAndWait();
@@ -291,8 +291,7 @@ public class BookController extends BaseController implements Initializable {
             try {
                 BookDAO.deleteBook(selectedBook);
             } catch (SQLException e) {
-                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.",
-                        ButtonType.OK);
+                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
                 errorAlert.setTitle("Lỗi xóa sách");
                 errorAlert.setHeaderText(null);
                 errorAlert.showAndWait();

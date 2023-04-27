@@ -21,32 +21,42 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class BorrowerController extends BaseController implements Initializable{
+public class BorrowerController extends BaseController implements Initializable {
 
-    //Tạo tableview
-    @FXML private TableView<Borrower> tableView;
-    @FXML private TableColumn<Borrower, String> idColumn;
-    @FXML private TableColumn<Borrower, String> fullNameColumn;
-    @FXML private TableColumn<Borrower, String> phoneNumberColumn;
-    @FXML private TableColumn<Borrower, LocalDate> dateOfBirthColumn;
-    @FXML private TableColumn<Borrower, String> emailColumn;
-    @FXML private TableColumn<Borrower, String> typeColumn;
-    @FXML private TableColumn<Borrower, LocalDate> lastColumn;
-   
-    //Tạo một bookList mới dành cho việc hiển thị những sách được tìm
+    // Tạo tableview
+    @FXML
+    private TableView<Borrower> tableView;
+    @FXML
+    private TableColumn<Borrower, String> idColumn;
+    @FXML
+    private TableColumn<Borrower, String> fullNameColumn;
+    @FXML
+    private TableColumn<Borrower, String> phoneNumberColumn;
+    @FXML
+    private TableColumn<Borrower, LocalDate> dateOfBirthColumn;
+    @FXML
+    private TableColumn<Borrower, String> emailColumn;
+    @FXML
+    private TableColumn<Borrower, String> typeColumn;
+    @FXML
+    private TableColumn<Borrower, LocalDate> lastColumn;
+
+    // Tạo một bookList mới dành cho việc hiển thị những sách được tìm
     private ObservableList<Borrower> borrowerList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         fullNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
-        phoneNumberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhoneNumber()));
-        dateOfBirthColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDateOfBirth()));
+        phoneNumberColumn
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhoneNumber()));
+        dateOfBirthColumn
+                .setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDateOfBirth()));
         emailColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEmail()));
         typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getType()));
         lastColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getLast()));
 
-        //Khởi tạo giá trị cho tableView
+        // Khởi tạo giá trị cho tableView
         tableView.setItems(App.borrowers);
 
         typeComboBox.getItems().addAll("Sinh viên", "Giáo viên", "Nhân viên");
@@ -54,23 +64,30 @@ public class BorrowerController extends BaseController implements Initializable{
         borrowerList = FXCollections.observableArrayList();
     }
 
-    //Chức năng tìm kiếm người mượn
-    @FXML private TextField idTextField;
-    @FXML private TextField fullNameTextField;
-    @FXML private TextField phoneNumberTextField;
-    @FXML private DatePicker dateOfBirthTextField;
-    @FXML private TextField emailTextField;
-    @FXML private ChoiceBox<String> typeComboBox;
+    // Chức năng tìm kiếm người mượn
+    @FXML
+    private TextField idTextField;
+    @FXML
+    private TextField fullNameTextField;
+    @FXML
+    private TextField phoneNumberTextField;
+    @FXML
+    private DatePicker dateOfBirthTextField;
+    @FXML
+    private TextField emailTextField;
+    @FXML
+    private ChoiceBox<String> typeComboBox;
 
-    public ObservableList<Borrower> searchBorrowers(String id, String fullName, String phoneNumber, LocalDate dateOfBirth, String email, String type) {
+    public ObservableList<Borrower> searchBorrowers(String id, String fullName, String phoneNumber,
+            LocalDate dateOfBirth, String email, String type) {
         ObservableList<Borrower> result = FXCollections.observableArrayList();
         for (Borrower borrower : App.borrowers) {
             if (borrower.getId().contains(id)
-                && borrower.getFullName().contains(fullName)
-                && borrower.getPhoneNumber().contains(phoneNumber)
-                && (dateOfBirth == null || borrower.getDateOfBirth().equals(dateOfBirth))
-                && borrower.getEmail().contains(email)
-                && borrower.getType().equals(type)) {
+                    && borrower.getFullName().contains(fullName)
+                    && borrower.getPhoneNumber().contains(phoneNumber)
+                    && (dateOfBirth == null || borrower.getDateOfBirth().equals(dateOfBirth))
+                    && borrower.getEmail().contains(email)
+                    && borrower.getType().equals(type)) {
                 result.add(borrower);
             }
         }
@@ -88,7 +105,8 @@ public class BorrowerController extends BaseController implements Initializable{
         String type = typeComboBox.getValue();
 
         // Call a method to search for borrowers in the database using search criteria
-        ObservableList<Borrower> searchedBorrowers = FXCollections.observableList(searchBorrowers(id, fullName, phoneNumber, dateOfBirth, email, type));
+        ObservableList<Borrower> searchedBorrowers = FXCollections
+                .observableList(searchBorrowers(id, fullName, phoneNumber, dateOfBirth, email, type));
 
         // Hiển thị người mượn đã được tìm kiếm lên tableview
         borrowerList.clear();
@@ -97,13 +115,15 @@ public class BorrowerController extends BaseController implements Initializable{
     }
 
     // Chức năng chỉnh sửa người mượn sách
-    @FXML private Button editBorrowerButton;
+    @FXML
+    private Button editBorrowerButton;
 
     @FXML
     void editBorrower(ActionEvent event) {
         Borrower selectedBorrower = tableView.getSelectionModel().getSelectedItem();
         if (selectedBorrower == null) {
-            // Hiển thị thông báo cho người dùng biết họ cần chọn một người mượn sách để chỉnh sửa
+            // Hiển thị thông báo cho người dùng biết họ cần chọn một người mượn sách để
+            // chỉnh sửa
             Alert alert = new Alert(AlertType.INFORMATION, "Chọn một người mượn sách để sửa", ButtonType.OK);
             alert.setTitle("Sai thao tác");
             alert.setHeaderText(null);
@@ -111,8 +131,10 @@ public class BorrowerController extends BaseController implements Initializable{
             return;
         }
 
-        // Hiển thị thông tin người mượn sách hiện tại trong các trường văn bản và hộp lựa chọn
+        // Hiển thị thông tin người mượn sách hiện tại trong các trường văn bản và hộp
+        // lựa chọn
         idTextField.setText(selectedBorrower.getId());
+        idTextField.setEditable(false);
         fullNameTextField.setText(selectedBorrower.getFullName());
         phoneNumberTextField.setText(selectedBorrower.getPhoneNumber());
         dateOfBirthTextField.setValue(selectedBorrower.getDateOfBirth());
@@ -133,29 +155,55 @@ public class BorrowerController extends BaseController implements Initializable{
         borrowerToEdit.setEmail(emailTextField.getText());
         borrowerToEdit.setType(typeComboBox.getValue());
 
-        // Đồng bộ hóa với cơ sở dữ liệu (ví dụ: gọi phương thức cập nhật cơ sở dữ liệu)
+        try {
+            // BorrowerDAO.updateBorrower(borrowerToEdit);
+            App.borrowers.add(borrowerToEdit);
+            // Cập nhật giao diện người dùng
+            tableView.refresh();
 
-        // Cập nhật giao diện người dùng
-        tableView.refresh();
+            // hiển thị thông báo cho người dùng biết cập nhật thành công
+            Alert alert = new Alert(AlertType.INFORMATION, "Đã cập nhật sách thành công!", ButtonType.OK);
+            alert.setTitle("Thành công");
+            alert.setHeaderText(null);
+            alert.showAndWait();
 
-        // Thay đổi nút Lưu thành nút Chỉnh sửa
-        editBorrowerButton.setText("Chỉnh sửa");
-        editBorrowerButton.setOnAction(this::editBorrower);
+            // Thay đổi nút Lưu thành nút Chỉnh sửa
+            editBorrowerButton.setText("Lưu");
+            editBorrowerButton.setOnAction(this::editBorrower);
 
-        //Refresh các textfield
-        idTextField.setText("");
-        fullNameTextField.setText("");
-        phoneNumberTextField.setText("");
-        dateOfBirthTextField.setValue(null);
-        emailTextField.setText("");
-        typeComboBox.setValue(null);
-}
+            // Refresh các textfield
+            idTextField.setText("");
+            idTextField.setEditable(true);
+            fullNameTextField.setText("");
+            phoneNumberTextField.setText("");
+            dateOfBirthTextField.setValue(null);
+            emailTextField.setText("");
+            typeComboBox.setValue(null);
+        } catch (Exception ex) {
+            // nếu thất bại, hiển thị thông báo lỗi cho người dùng
+            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi cập nhật sách. Vui lòng thử lại!", ButtonType.OK);
+            alert.setTitle("Lỗi");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        }
+    }
 
     // Chức năng thêm người mượn sách
-    @FXML private Button addBorrowerButton;
+    @FXML
+    private Button addBorrowerButton;
 
     @FXML
-    void addBorrower() {
+    void addBorrower(ActionEvent event) {
+        String id = IdGenerator.generateNextBorrowerId();
+        idTextField.setText(id);
+        idTextField.setEditable(false);
+
+        addBorrowerButton.setText("Lưu");
+        addBorrowerButton.setOnAction(e -> saveNewBorrower(e));
+    }
+
+    @FXML
+    void saveNewBorrower(ActionEvent event) {
         String id = idTextField.getText();
         String fullName = fullNameTextField.getText();
         String phoneNumber = phoneNumberTextField.getText();
@@ -164,7 +212,7 @@ public class BorrowerController extends BaseController implements Initializable{
         String type = typeComboBox.getValue();
 
         // Kiểm tra tính hợp lệ của dữ liệu nhập
-        if (id.isEmpty() || fullName.isEmpty() || phoneNumber.isEmpty()|| dateOfBirth == null || email.isEmpty() || type == null) {
+        if (fullName.isEmpty() || phoneNumber.isEmpty() || dateOfBirth == null || email.isEmpty() || type == null) {
             Alert alert1 = new Alert(AlertType.INFORMATION, "Vui lòng nhập đầy đủ thông tin", ButtonType.OK);
             alert1.setTitle("Thông tin không hợp lệ");
             alert1.setHeaderText(null);
@@ -174,24 +222,41 @@ public class BorrowerController extends BaseController implements Initializable{
 
         Borrower newBorrower = new Borrower(id, fullName, phoneNumber, dateOfBirth, email, type);
         App.borrowers.add(newBorrower);
+        //Thêm sách vào cơ sở dũ liệu
+        /*
+        try {
+            Borrower.addBorrower(newBorrower);
+        } catch (SQLException ex) {
+            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu sách mới, vui lòng thử lại", ButtonType.OK);
+            alert.setTitle("Lỗi cơ sở dữ liệu");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+        */
 
-        //Refresh các textfield
+        // Refresh các trường thông tin
         idTextField.setText("");
+        idTextField.setEditable(true);
         fullNameTextField.setText("");
         phoneNumberTextField.setText("");
         dateOfBirthTextField.setValue(null);
         emailTextField.setText("");
         typeComboBox.setValue(null);
+        //Đặt lại hành động của nút
+        addBorrowerButton.setText("Thêm");
+        addBorrowerButton.setOnAction(this::addBorrower);
 
-       //Thông báo thành công
-       Alert alert2 = new Alert(AlertType.INFORMATION, "Tạo thẻ mượn sách thành công", ButtonType.OK);
-       alert2.setTitle("Tạo thẻ mượn sách thành công");
-       alert2.setHeaderText(null);
-       alert2.showAndWait();
-       return;
+        // Thông báo thành công
+        Alert alert2 = new Alert(AlertType.INFORMATION, "Tạo thẻ mượn sách thành công", ButtonType.OK);
+        alert2.setTitle("Tạo thẻ mượn sách thành công");
+        alert2.setHeaderText(null);
+        alert2.showAndWait();
+        return;
     }
 
-    @FXML private Button deleteBorrowerButton;
+    @FXML
+    private Button deleteBorrowerButton;
 
     @FXML
     void deleteBorrower(ActionEvent event) {
@@ -204,13 +269,26 @@ public class BorrowerController extends BaseController implements Initializable{
             return;
         }
 
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa người mượn này không?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa người mượn này không?",ButtonType.YES, ButtonType.NO);
         alert.setTitle("Xác nhận xóa");
         alert.setHeaderText(null);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            // Xóa người mượn khỏi cơ sở dữ liệu 
+            //Xóa sách khỏi cơ sở dữ liệu
+            /*
+             try {
+                BorrowerDAO.deleteBorrower(selectedBorrower);
+             } catch (SQLException e) {
+                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
+                errorAlert.setTitle("Lỗi xóa sách");
+                errorAlert.setHeaderText(null);
+                errorAlert.showAndWait();
+                e.printStackTrace();
+                return;  
+             }
+             */
+            // Xóa người mượn khỏi cơ sở dữ liệu
             App.borrowers.remove(selectedBorrower);
 
             // Tạo thông báo xóa người mượn thành công

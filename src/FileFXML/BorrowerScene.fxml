@@ -22,7 +22,7 @@
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
             <Label prefHeight="18.0" prefWidth="101.0" text="Trang chủ" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToHome">
+            <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -31,7 +31,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="30.0" prefWidth="100.0" text="Sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBook">
+            <Button mnemonicParsing="false" onAction="#switchToBook" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +49,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Mượn sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToCard">
+            <Button mnemonicParsing="false" onAction="#switchToCard" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Trả sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToGiveBack">
+            <Button mnemonicParsing="false" onAction="#switchToGiveBack" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -80,11 +80,11 @@
       </AnchorPane>
       <AnchorPane layoutX="130.0" layoutY="67.0" prefHeight="624.0" prefWidth="766.0">
          <children>
-            <HBox layoutY="597.0" prefHeight="26.0" prefWidth="168.0">
+            <HBox layoutX="591.0" layoutY="597.0" prefHeight="26.0" prefWidth="168.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm" fx:id="addBorrowerButton" onAction="#addBorrower"/>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" fx:id="editBorrowerButton" onAction="#editBorrower"/>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FF0000;" text="Xóa" fx:id="deleteBorrowerButton" onAction="#deleteBorrower"/>
+                  <Button fx:id="addBorrowerButton" mnemonicParsing="false" onAction="#addBorrower" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #00FF00;" text="Thêm" />
+                  <Button fx:id="editBorrowerButton" mnemonicParsing="false" onAction="#editBorrower" prefHeight="26.0" prefWidth="55.0" style="-fx-background-color: #FFFF00;" text="Sửa" />
+                  <Button fx:id="deleteBorrowerButton" mnemonicParsing="false" onAction="#deleteBorrower" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #FF0000;" text="Xóa" />
                </children>
             </HBox>
             <Label layoutX="7.0" layoutY="6.0" prefHeight="43.0" prefWidth="215.0" text="Tra cứu người mượn">
@@ -92,10 +92,10 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <GridPane layoutX="7.0" layoutY="60.0" prefHeight="91.0" prefWidth="753.0">
+            <GridPane layoutX="15.0" layoutY="60.0" prefHeight="121.0" prefWidth="746.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.4000244140625" minWidth="10.0" prefWidth="152.4000244140625" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.80001831054688" minWidth="10.0" prefWidth="192.3999755859375" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.4000244140625" minWidth="10.0" prefWidth="92.2000244140625" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.59998779296876" minWidth="10.0" prefWidth="277.5999755859375" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="22.39996337890625" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.60003662109375" minWidth="10.0" prefWidth="112.00003662109373" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="231.39996337890625" minWidth="10.0" prefWidth="231.39996337890625" />
@@ -108,28 +108,28 @@
                <children>
                   <Label text="ID :" />
                   <Label text="Họ và tên:" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" fx:id="idTextField"/>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="fullNameTextField"/>
+                  <TextField fx:id="idTextField" GridPane.columnIndex="1" />
+                  <TextField fx:id="fullNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Ngày tháng năm sinh:" GridPane.columnIndex="3" />
                   <Label text="Loại người mượn:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Label text="Số điện thoại:" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="phoneNumberTextField"/>
-                  <DatePicker GridPane.columnIndex="4" fx:id="dateOfBirthTextField"/>
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" fx:id="typeComboBox"/>
+                  <TextField fx:id="phoneNumberTextField" prefHeight="11.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="dateOfBirthTextField" GridPane.columnIndex="4" />
+                  <ChoiceBox fx:id="typeComboBox" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                   <Label text="Địa chỉ Email:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField prefHeight="26.0" prefWidth="192.0" GridPane.columnIndex="4" GridPane.rowIndex="1" fx:id="emailTextField"/>
+                  <TextField fx:id="emailTextField" prefHeight="26.0" prefWidth="192.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button layoutX="356.0" layoutY="168.0" mnemonicParsing="false" style="-fx-background-color: #0000FF;" text="Tra cứu" onAction="#searchBorrowers"/>
-            <TableView layoutY="212.0" prefHeight="374.0" prefWidth="767.0" fx:id="tableView">
+            <Button layoutX="112.0" layoutY="192.0" mnemonicParsing="false" onAction="#searchBorrowers" style="-fx-background-color: #007FFF;" text="Tra cứu" />
+            <TableView fx:id="tableView" layoutY="238.0" prefHeight="348.0" prefWidth="759.0">
               <columns>
-                <TableColumn prefWidth="47.999969482421875" text="ID" fx:id="idColumn"/>
-                <TableColumn prefWidth="128.80001831054688" text="Họ và tên" fx:id="fullNameColumn"/>
-                  <TableColumn prefWidth="117.5999755859375" text="Số điện thoại" fx:id="phoneNumberColumn"/>
-                  <TableColumn prefWidth="129.60006713867188" text="Ngày sinh" fx:id="dateOfBirthColumn"/>
-                  <TableColumn prefWidth="134.4000244140625" text="Email" fx:id="emailColumn"/>
-                  <TableColumn minWidth="0.0" prefWidth="74.4000244140625" text="Loại" fx:id="typeColumn"/>
-                  <TableColumn prefWidth="127.199951171875" text="Ngày mượn gần nhất" fx:id="lastColumn"/>
+                <TableColumn fx:id="idColumn" prefWidth="60.800018310546875" text="ID" />
+                <TableColumn fx:id="fullNameColumn" prefWidth="116.79998779296875" text="Họ và tên" />
+                  <TableColumn fx:id="phoneNumberColumn" prefWidth="117.5999755859375" text="Số điện thoại" />
+                  <TableColumn fx:id="dateOfBirthColumn" prefWidth="129.60006713867188" text="Ngày sinh" />
+                  <TableColumn fx:id="emailColumn" prefWidth="134.4000244140625" text="Email" />
+                  <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="74.4000244140625" text="Loại" />
+                  <TableColumn fx:id="lastColumn" prefWidth="127.199951171875" text="Ngày mượn gần nhất" />
               </columns>
             </TableView>
          </children></AnchorPane>
