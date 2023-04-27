@@ -44,7 +44,6 @@ public class CardController extends BaseController {
     public void initialize() {
         borrowedBooks = FXCollections.observableArrayList();
 
-        //inputBookIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         indexColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(booksTableView.getItems().indexOf(cellData.getValue()) + 1).asObject());
         bookIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         titleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
@@ -52,7 +51,6 @@ public class CardController extends BaseController {
         publisherColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPublisher()));
         publicationYearColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPublicationYear()).asObject());
         genreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenre()));
-
 
         deleteColumn.setCellFactory(param -> new TableCell<Book, Void>() {
             private final Button deleteButton = new Button("Xóa");
@@ -82,10 +80,38 @@ public class CardController extends BaseController {
                 addBookToBorrowList();
             }
         });
+
+        borrowerIdTextField.setOnKeyPressed(event ->{
+            if (event.getCode() == KeyCode.ENTER) {
+                checkBorrowerId();
+            }
+        });
         
         booksTableView.setItems(borrowedBooks);
     }
 
+    public void checkBorrowerId() {
+        String borowerId = borrowerIdTextField.getText();
+        if (!borowerId.isEmpty()) {
+            Borrower borrower = findBorrowerById(borowerId);
+            if (borrower == null) {
+                 // Hiển thị thông báo nếu không tìm người mượn tương ứng
+                 Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy người mượn có ID tương ứng", ButtonType.OK);
+                 alert.setTitle("Không tìm thấy");
+                 alert.setHeaderText(null);
+                 alert.showAndWait();
+            }
+        }
+    }
+
+    public Borrower findBorrowerById(String id) {
+        for (Borrower borrower : App.borrowers) {
+            if (borrower.getId().equals(id)) {
+                return borrower;
+            }
+        }
+        return null;
+    }
     public Book findBookById(String id) {
         for (Book book : App.books) {
             if (book.getId().equals(id)) {
@@ -122,7 +148,8 @@ public class CardController extends BaseController {
     @FXML
     public void createBorrowCard() {
         // Lấy thông tin từ các trường nhập liệu
-        String cardId = cardIdTextField.getText();
+        String cardId = IdGenerator.generateNextCardId();
+        borrowerIdTextField.setEditable(false);
         String borrowerId = borrowerIdTextField.getText();
         LocalDate borrowDate = borrowDateDatePicker.getValue();
         LocalDate returnDate = returnDateDatePicker.getValue();
@@ -151,6 +178,7 @@ public class CardController extends BaseController {
         booksTableView.refresh();
         cardIdTextField.setText("");
         borrowerIdTextField.setText("");
+        borrowerIdTextField.setEditable(true);
         borrowDateDatePicker.setValue(null);
         returnDateDatePicker.setValue(null);
 
