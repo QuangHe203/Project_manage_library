@@ -4,6 +4,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import Database.BorrowerDAO;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -156,7 +157,7 @@ public class BorrowerController extends BaseController implements Initializable 
         borrowerToEdit.setType(typeComboBox.getValue());
 
         try {
-            // BorrowerDAO.updateBorrower(borrowerToEdit);
+            BorrowerDAO.updateBorrower(borrowerToEdit);
             App.borrowers.add(borrowerToEdit);
             // Cập nhật giao diện người dùng
             tableView.refresh();
