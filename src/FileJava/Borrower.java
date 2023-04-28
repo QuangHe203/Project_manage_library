@@ -15,12 +15,12 @@ public class Borrower {
 
     }
 
-    public Borrower(String id, String fullName, String phoneNumber,LocalDate dateOfBirth, String email, String type) {
+    public Borrower(String id, String fullName, String phoneNumber,LocalDate date, String email, String type) {
         this.id = id;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = date;
         this.type = type;
     }
 

@@ -150,6 +150,7 @@ public class CardController extends BaseController {
         // Lấy thông tin từ các trường nhập liệu
         String cardId = IdGenerator.generateNextCardId();
         borrowerIdTextField.setEditable(false);
+        cardIdTextField.setText(cardId);
         String borrowerId = borrowerIdTextField.getText();
         LocalDate borrowDate = borrowDateDatePicker.getValue();
         LocalDate returnDate = returnDateDatePicker.getValue();
