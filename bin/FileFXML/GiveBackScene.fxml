@@ -20,7 +20,7 @@
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="594.0" prefWidth="100.0">
          <children>
             <Label prefHeight="18.0" prefWidth="101.0" text="Trang chủ" />
-            <Button  mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToHome">
+            <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="63.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -29,7 +29,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="30.0" prefWidth="100.0" text="Sách" />
-            <Button  mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBook">
+            <Button mnemonicParsing="false" onAction="#switchToBook" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -38,7 +38,7 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Độc giả" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToBorrower">
+            <Button mnemonicParsing="false" onAction="#switchToBorrower" prefHeight="80.0" prefWidth="100.0">
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -47,9 +47,9 @@
                   </ImageView>
                </graphic></Button>
             <Label prefHeight="34.0" prefWidth="100.0" text="Mượn sách" />
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" onAction="#switchToCard">
+            <Button mnemonicParsing="false" onAction="#switchToCard" prefHeight="80.0" prefWidth="100.0">
                <graphic>
-                  <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" >
+                  <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/Card.png" />
                      </image>
@@ -100,21 +100,22 @@
                   <Label text="ID người mượn sách:" GridPane.rowIndex="1" />
                   <Label text="Ngày mượn:" GridPane.columnIndex="3" />
                   <Label text="Ngày hẹn trả:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" fx:id="idCardTextField"/>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="idBorrowerTextField"/>
-                  <DatePicker prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" fx:id="borrowDateTextField"/>
-                  <DatePicker prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="4" GridPane.rowIndex="1" fx:id="returnDateTextField"/>
+                  <TextField fx:id="idCardTextField" GridPane.columnIndex="1" />
+                  <TextField fx:id="idBorrowerTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="borrowDateTextField" prefHeight="26.0" prefWidth="194.0" GridPane.columnIndex="4" />
+                  <DatePicker fx:id="returnDateTextField" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <TableView layoutY="180.0" prefHeight="323.0" prefWidth="766.0" fx:id="tableView">
+            <TableView fx:id="tableView" layoutY="180.0" prefHeight="323.0" prefWidth="766.0">
                <columns>
-                  <TableColumn prefWidth="120.00003051757812" text="ID thẻ " fx:id="idCardColumn"/>
-                  <TableColumn prefWidth="124.79998779296875" text="ID người mượn" fx:id="idBorrowerColumn"/>
-                  <TableColumn prefWidth="202.39999389648438" text="Ngày mượn" fx:id="borrowDateColumn"/>
-                  <TableColumn prefWidth="222.39996337890625" text="Ngày hẹn trả" fx:id="returnDateColumn"/>
+                  <TableColumn fx:id="idCardColumn" prefWidth="136.80001831054688" text="ID thẻ " />
+                  <TableColumn fx:id="idBorrowerColumn" prefWidth="141.5999755859375" text="ID người mượn" />
+                  <TableColumn fx:id="borrowDateColumn" prefWidth="159.20004272460938" text="Ngày mượn" />
+                  <TableColumn fx:id="returnDateColumn" prefWidth="205.60009765625" text="Ngày hẹn trả" />
+                  <TableColumn prefWidth="119.99997558593748" text="Xác nhận" fx:id="actionColumn"/>
                </columns>
             </TableView>
-            <Button layoutX="353.0" layoutY="143.0" mnemonicParsing="false" style="-fx-background-color: #0000FF;" text="Tra cứu" onAction="#searchCards"/>
+            <Button layoutX="353.0" layoutY="143.0" mnemonicParsing="false" onAction="#searchCards" style="-fx-background-color: #0000FF;" text="Tra cứu" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
