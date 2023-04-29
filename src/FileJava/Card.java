@@ -11,16 +11,18 @@ public class Card {
     private String borrowerId;  //ID người mượn sách
     private LocalDate borrowDate;   //Ngày mượn
     private LocalDate returnDate;  //Ngày hẹn trả
+    private ObservableList<Book> borrowedBooks = FXCollections.observableArrayList(); // Danh sách sách mượn
 
     public Card() {
 
     }
 
-    public Card(String cardId, String borrowerId, LocalDate borrowDate, LocalDate returnDate,  List<Book> borrowedBooks) {
+    public Card(String cardId, String borrowerId, LocalDate borrowDate, LocalDate returnDate, List<Book> borrowedBooks) {
         this.cardId = cardId;
         this.borrowerId = borrowerId;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
+        this.borrowedBooks = FXCollections.observableArrayList(borrowedBooks);
     }
 
     public String getCardId() {
@@ -40,15 +42,11 @@ public class Card {
     }
 
     public ObservableList<Book> getBorrowedBooks() {
-        ObservableList<Book> borrowedBooks = FXCollections.observableArrayList();
-        for (Book book : borrowedBooks) {
-            borrowedBooks.add(book);
-        }
         return borrowedBooks;
     }
     
-
     public void setBorrowedBooks(List<Book> borrowedBooks) {
+        this.borrowedBooks = FXCollections.observableArrayList(borrowedBooks);
     }
 
     public LocalDate getBorrowDate() {

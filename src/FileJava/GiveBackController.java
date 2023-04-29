@@ -1,29 +1,28 @@
 package FileJava;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 
 public class GiveBackController extends BaseController implements Initializable {
@@ -107,7 +106,7 @@ public class GiveBackController extends BaseController implements Initializable 
         Card selectedCard = tableView.getSelectionModel().getSelectedItem();
         if (selectedCard == null) {
             // Hiển thị thông báo cho người dùng biết họ cần chọn một sách để chỉnh sửa
-            Alert alert = new Alert(AlertType.INFORMATION, "Chọn một sách để sửa", ButtonType.OK);
+            Alert alert = new Alert(AlertType.INFORMATION, "Chọn thẻ mượn sách", ButtonType.OK);
             alert.setTitle("Sai thao tác");
             alert.setHeaderText(null);
             alert.showAndWait();
@@ -117,42 +116,28 @@ public class GiveBackController extends BaseController implements Initializable 
     }
     
     private void showDialogAndConfirm(Card selectedCard) {
-        // Tạo dialog để hiển thị thông tin của thẻ mượn sách được chọn
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Thông tin thẻ mượn sách");
-        dialog.setHeaderText(null);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-    
-        // Tạo gridpane để chứa các trường thông tin
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(20, 150, 10, 10));
-    
-        // Thêm các trường thông tin về thẻ mượn sách vào gridpane
-        gridPane.add(new Label("Mã thẻ mượn sách:"), 0, 0);
-        gridPane.add(new Label(selectedCard.getCardId()), 1, 0);
-    
-        gridPane.add(new Label("Mã người mượn sách:"), 0, 1);
-        gridPane.add(new Label(selectedCard.getBorrowerId()), 1, 1);
-    
-        gridPane.add(new Label("Ngày mượn sách:"), 0, 2);
-        gridPane.add(new Label(selectedCard.getBorrowDate().toString()), 1, 2);
-    
-        gridPane.add(new Label("Danh sách sách đang mượn:"), 0, 3, 2, 1);
-    
-        ListView<Book> bookListView = new ListView<>(selectedCard.getBorrowedBooks());
-        gridPane.add(bookListView, 0, 4, 2, 1);
-    
-        // Thêm gridpane vào dialog
-        dialog.getDialogPane().setContent(gridPane);
-    
-        // Hiển thị dialog và chờ người dùng xác nhận
-        Optional<ButtonType> result = dialog.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Người dùng đã xác nhận, thực hiện xử lý trả sách tại đây
+        try {
+            // Load the FXML file and create the Dialog
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FileFXML/GiveBackDialog.fxml"));
+            DialogPane dialogPane = loader.load();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+        
+            // Get controller of the Dialog and set the selectedCard data
+            GiveBackDialogController controller = loader.getController();
+            controller.setSelectedCardData(selectedCard);
+        
+            // Show the Dialog and handle the result
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.FINISH) {
+                // Perform desired action when the "Finish" button is clicked
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+    
+    
     
     private void createActionColumn() {
         actionColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue()));
@@ -176,4 +161,5 @@ public class GiveBackController extends BaseController implements Initializable 
             return cell;
         });
     }
+    
 }    
