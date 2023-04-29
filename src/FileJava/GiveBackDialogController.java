@@ -1,8 +1,15 @@
 package FileJava;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -28,7 +35,7 @@ public class GiveBackDialogController {
     private Label feeMiss;
 
     @FXML
-    private ListView<String> listBook;
+    private ListView<Book> listBook;
 
     public void setSelectedCardData(Card selectedCard) {
         idBorrowerLabel.setText(selectedCard.getBorrowerId());
@@ -43,14 +50,54 @@ public class GiveBackDialogController {
         feeLate.setText(String.format("%.2f", lateFee));
         feeMiss.setText(String.format("%.2f", missingFee));
 
-        // Hiển thị danh sách sách mượn trong ListView (giả định sách là chuỗi)
-        listBook.getItems().setAll(getBookList(selectedCard));
+        /// Lấy danh sách sách mượn và hiển thị trong ListView
+        List<Book> borrowedBooks = getBookList(selectedCard);
+        listBook.getItems().clear();
+        listBook.getItems().addAll(borrowedBooks);
+
+        // Cập nhật cách hiển thị cho các mục trong ListView
+        listBook.setCellFactory(CheckBoxListCell.forListView(new Callback<Book, ObservableValue<Boolean>>() {
+            @Override
+            public ObservableValue<Boolean> call(Book book) {
+                BooleanProperty returned = new SimpleBooleanProperty(true);
+                returned.addListener((obs, wasReturned, isNowReturned) -> {
+                    if (!isNowReturned) {
+                        // Cập nhật phí sách mất
+                        double currentFee = Double.parseDouble(feeMiss.getText());
+                        feeMiss.setText(String.valueOf(currentFee + book.getPrice()));
+                    } else {
+                        // Trừ phí sách mất
+                        double currentFee = Double.parseDouble(feeMiss.getText());
+                        feeMiss.setText(String.valueOf(currentFee - book.getPrice()));
+                    }
+                });
+                return returned;
+            }
+        }, new StringConverter<Book>() {
+            @Override
+            public String toString(Book book) {
+                return book.getTitle();
+            }
+
+            @Override
+            public Book fromString(String string) {
+                return null; // Không cần thiết
+            }
+        }));
     }
 
     // Phương thức giả định để tính phí trễ
     private double calculateLateFee(Card selectedCard) {
-        // Thay thế bằng phương thức tính phí trễ của bạn
-        return 0.0;
+        double lateFeePerDay = 3000.0;
+        LocalDate currentDate = LocalDate.now();
+        LocalDate returnDate = selectedCard.getReturnDate();
+
+        if (currentDate.isAfter(returnDate)) {
+            long daysLate = ChronoUnit.DAYS.between(returnDate, currentDate);
+            return daysLate * lateFeePerDay;
+        } else {
+            return 0.0;
+        }
     }
 
     // Phương thức giả định để tính phí mất sách
@@ -60,8 +107,7 @@ public class GiveBackDialogController {
     }
 
     // Phương thức giả định để lấy danh sách sách mượn
-    private List<String> getBookList(Card selectedCard) {
-        // Thay thế bằng phương thức lấy danh sách sách mượn của bạn
-        return new ArrayList<>();
+    private List<Book> getBookList(Card selectedCard) {
+        return selectedCard.getBorrowedBooks();
     }
 }

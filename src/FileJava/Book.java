@@ -10,9 +10,23 @@ public class Book {
     private String genre;   // Thể loại
     private String status;  //Tình trạng
     private String location;    //Vị trí
+    private Double price; // Giá sách
 
     public Book() {
 
+    }
+
+    public Book(String id, String title, String author, String publisher, int publicationYear, int quantity, String genre, String status, String location, double price) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publicationYear = publicationYear;
+        this.quantity = quantity;
+        this.genre = genre;
+        this.status = status;
+        this.location = location;
+        this.price = price;
     }
 
     public Book(String id, String title, String author, String publisher, int publicationYear, int quantity, String genre, String status, String location) {
@@ -101,5 +115,13 @@ public class Book {
 
     public String getLocation() {
         return location;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getPrice(){ 
+        return price;
     }
 }
