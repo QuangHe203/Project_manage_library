@@ -125,9 +125,18 @@ public class CardController extends BaseController {
     public void addBookToBorrowList() {
         String bookId = bookIdTextField.getText();
         if (!bookId.isEmpty()) {
+            if (bookIds.contains(bookId)) {
+                // Hiển thị thông báo nếu sách đã có trong danh sách mượn
+                Alert alert = new Alert(AlertType.INFORMATION, "Sách đã có trong danh sách mượn", ButtonType.OK);
+                alert.setTitle("Sách đã có");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+                return;
+            }
             Book book = findBookById(bookId);
             if (book != null) {
                 borrowedBooks.add(book);
+                bookIds.add(bookId); // Thêm ID sách vào tập hợp để kiểm tra sách đã có trong danh sách mượn hay chưa
                 bookIdTextField.clear();
             } else {
                 // Hiển thị thông báo nếu không tìm thấy sách
@@ -135,10 +144,11 @@ public class CardController extends BaseController {
                 alert.setTitle("Không tìm thấy sách");
                 alert.setHeaderText(null);
                 alert.showAndWait();
-            return;
+                return;
             }
         }
     }
+    
 
     @FXML
     public void removeBookFromBorrowList(Book book) {
@@ -168,6 +178,13 @@ public class CardController extends BaseController {
         Card newCard = new Card(cardId, borrowerId, borrowDate, returnDate, borrowedBooks);
 
         App.cards.add(newCard);
+
+        //Gắn ngày mượn gần nhất của người mượn sách với ngày tạo thẻ sách
+        for (Borrower borrower : App.borrowers) {
+            if (borrower.getId().equals(borrowerId)) {
+                borrower.setLast(borrowDate);
+            }
+        }
 
         
         // Loại bỏ sách đã mượn khỏi danh sách sách có sẵn
