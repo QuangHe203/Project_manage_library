@@ -38,7 +38,7 @@ public class GiveBackController extends BaseController implements Initializable 
     @FXML
     private TableColumn<Card, LocalDate> returnDateColumn;
     @FXML
-    private TableColumn<Card, Card> actionColumn;
+    private TableColumn<Card, Void> actionColumn;
     private ObservableList<Card> cardList;
 
     @Override
@@ -89,8 +89,7 @@ public class GiveBackController extends BaseController implements Initializable 
         LocalDate returnDate = returnDateTextField.getValue();
 
         // Call a method to search for cards in the database using search criteria
-        ObservableList<Card> searchedCards = FXCollections
-                .observableList(searchCards(idCard, idBorrower, borrowDate, returnDate));
+        ObservableList<Card> searchedCards = searchCards(idCard, idBorrower, borrowDate, returnDate);
 
         // Hiển thị thẻ đã được tìm kiếm lên tableview
         cardList.clear();
@@ -100,7 +99,7 @@ public class GiveBackController extends BaseController implements Initializable 
 
     @FXML
     private Button confirmButton;
-    
+
     @FXML
     void confirmCard(ActionEvent event) {
         Card selectedCard = tableView.getSelectionModel().getSelectedItem();
@@ -114,7 +113,7 @@ public class GiveBackController extends BaseController implements Initializable 
         }
         showDialogAndConfirm(selectedCard);
     }
-    
+
     private void showDialogAndConfirm(Card selectedCard) {
         try {
             // Load the FXML file and create the Dialog
@@ -122,44 +121,41 @@ public class GiveBackController extends BaseController implements Initializable 
             DialogPane dialogPane = loader.load();
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
-        
+
             // Get controller of the Dialog and set the selectedCard data
             GiveBackDialogController controller = loader.getController();
             controller.setSelectedCardData(selectedCard);
-        
+
             // Show the Dialog and handle the result
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.FINISH) {
-                // Perform desired action when the "Finish" button is clicked
+                App.cards.remove(selectedCard);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    
-    
+
     private void createActionColumn() {
-        actionColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue()));
-        actionColumn.setCellFactory(param -> {
-            Button confirmButton = new Button("Xác nhận");
-            TableCell<Card, Card> cell = new TableCell<>() {
-                @Override
-                protected void updateItem(Card item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item == null || empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(confirmButton);
-                    }
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button confirmButton = new Button("Xác nhận");
+    
+            {
+                confirmButton.setOnAction(event -> {
+                    Card selectedCard = getTableView().getItems().get(getIndex());
+                    showDialogAndConfirm(selectedCard);
+                });
+            }
+    
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(confirmButton);
                 }
-            };
-            confirmButton.setOnAction(event -> {
-                Card selectedCard = cell.getItem();
-                showDialogAndConfirm(selectedCard);
-            });
-            return cell;
+            }
         });
     }
-    
-}    
+}

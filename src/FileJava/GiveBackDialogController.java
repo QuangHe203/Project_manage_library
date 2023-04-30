@@ -2,6 +2,7 @@ package FileJava;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.util.Callback;
@@ -54,38 +55,49 @@ public class GiveBackDialogController {
 
         /// Lấy danh sách sách mượn và hiển thị trong ListView
         List<Book> borrowedBooks = getBookList(selectedCard);
+        if (borrowedBooks != null) {
+            listBook.getItems().clear();
+            listBook.getItems().addAll(borrowedBooks);
+        }
         listBook.getItems().clear();
         listBook.getItems().addAll(borrowedBooks);
 
         // Cập nhật cách hiển thị cho các mục trong ListView
-        listBook.setCellFactory(CheckBoxListCell.forListView(new Callback<Book, ObservableValue<Boolean>>() {
-            @Override
-            public ObservableValue<Boolean> call(Book book) {
-                BooleanProperty returned = new SimpleBooleanProperty(true);
-                returned.addListener((obs, wasReturned, isNowReturned) -> {
-                    if (!isNowReturned) {
-                        // Cập nhật phí sách mất
-                        double currentFee = Double.parseDouble(feeMiss.getText());
-                        feeMiss.setText(String.valueOf(currentFee + book.getPrice()));
-                    } else {
-                        // Trừ phí sách mất
-                        double currentFee = Double.parseDouble(feeMiss.getText());
-                        feeMiss.setText(String.valueOf(currentFee - book.getPrice()));
-                    }
-                });
-                return returned;
-            }
-        }, new StringConverter<Book>() {
-            @Override
-            public String toString(Book book) {
-                return book.getTitle();
-            }
+        listBook.setCellFactory(lv -> {
+            CheckBoxListCell<Book> cell = new CheckBoxListCell<>(
+                    new Callback<Book, ObservableValue<Boolean>>() {
+                        @Override
+                        public ObservableValue<Boolean> call(Book book) {
+                            BooleanProperty returned = new SimpleBooleanProperty(true);
+                            returned.addListener((obs, wasReturned, isNowReturned) -> {
+                                if (!isNowReturned) {
+                                    // Cập nhật phí sách mất
+                                    double currentFee = Double.parseDouble(feeMiss.getText());
+                                    feeMiss.setText(String.valueOf(currentFee + book.getPrice()));
+                                } else {
+                                    // Trừ phí sách mất
+                                    double currentFee = Double.parseDouble(feeMiss.getText());
+                                    feeMiss.setText(String.valueOf(currentFee - book.getPrice()));
+                                }
+                            });
+                            return returned;
+                        }
+                    });
 
-            @Override
-            public Book fromString(String string) {
-                return null; // Không cần thiết
-            }
-        }));
+            cell.setConverter(new StringConverter<Book>() {
+                @Override
+                public String toString(Book book) {
+                    return book.getTitle();
+                }
+
+                @Override
+                public Book fromString(String string) {
+                    return null; // Không cần thiết
+                }
+            });
+
+            return cell;
+        });
     }
 
     // Phương thức giả định để tính phí trễ
@@ -110,9 +122,7 @@ public class GiveBackDialogController {
 
     // Phương thức giả định để lấy danh sách sách mượn
     private List<Book> getBookList(Card selectedCard) {
-        return selectedCard.getBorrowedBooks();
+        List<Book> borrowedBooks = selectedCard.getBorrowedBooks();
+        return borrowedBooks != null ? borrowedBooks : new ArrayList<>();
     }
-
-    
-
 }
