@@ -86,6 +86,8 @@ public class BookController extends BaseController implements Initializable {
     private TextField statusTextField;
     @FXML
     private TextField locationTextField;
+    @FXML
+    private TextField priceTextField;
 
     public ObservableList<Book> searchBooks(String id, String title, String author, String publisher, String genre,
             Integer publishYear) {
@@ -110,13 +112,9 @@ public class BookController extends BaseController implements Initializable {
         String author = authorTextField.getText();
         String publisher = publisherTextField.getText();
         String genre = genreComboBox.getValue();
-        Integer publishYear = !publicationYearTextField.getText().isEmpty()
-                ? Integer.parseInt(publicationYearTextField.getText())
-                : null;
+        Integer publishYear = !publicationYearTextField.getText().isEmpty() ? Integer.parseInt(publicationYearTextField.getText()) : null;
 
-        // Call a method to search for books in database using search criteria
-        ObservableList<Book> searchedBooks = FXCollections
-                .observableList(searchBooks(id, title, author, publisher, genre, publishYear));
+        ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishYear));
 
         // Hiển thị sách đã được tìm kiếm lên tableview
         bookList.clear();
@@ -150,6 +148,7 @@ public class BookController extends BaseController implements Initializable {
         genreComboBox.setValue(selectedBook.getGenre());
         publicationYearTextField.setText(String.valueOf(selectedBook.getPublicationYear()));
         quantityTextField.setText(String.valueOf(selectedBook.getQuantity()));
+        priceTextField.setText(String.valueOf(selectedBook.getPrice()));
 
         // Thay đổi nút Chỉnh sửa thành nút Lưu
         editButton.setText("Lưu");
@@ -166,6 +165,7 @@ public class BookController extends BaseController implements Initializable {
         bookToEdit.setPublicationYear(Integer.parseInt(publicationYearTextField.getText()));
         bookToEdit.setQuantity(Integer.parseInt(quantityTextField.getText()));
         bookToEdit.setLocation(locationTextField.getText());
+        bookToEdit.setPrice(Double.parseDouble(priceTextField.getText()));
 
         try {
             // cập nhật thông tin sách
@@ -194,6 +194,7 @@ public class BookController extends BaseController implements Initializable {
             quantityTextField.setText("");
             locationTextField.setText("");
             genreComboBox.setValue(null);
+            priceTextField.setText("");
 
         } catch (Exception ex) {
             // nếu thất bại, hiển thị thông báo lỗi cho người dùng
@@ -264,6 +265,7 @@ public class BookController extends BaseController implements Initializable {
         quantityTextField.setText("");
         locationTextField.setText("");
         genreComboBox.setValue(null);
+        priceTextField.setText("");
         // Đặt lại hành động của nút 
         addButton.setText("Thêm");
         addButton.setOnAction(this::addBook);

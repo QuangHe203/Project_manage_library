@@ -109,10 +109,10 @@
             <TableView fx:id="tableView" layoutY="180.0" prefHeight="323.0" prefWidth="766.0">
                <columns>
                   <TableColumn fx:id="idCardColumn" prefWidth="136.80001831054688" text="ID thẻ " />
-                  <TableColumn fx:id="idBorrowerColumn" prefWidth="141.5999755859375" text="ID người mượn" />
-                  <TableColumn fx:id="borrowDateColumn" prefWidth="159.20004272460938" text="Ngày mượn" />
-                  <TableColumn fx:id="returnDateColumn" prefWidth="205.60009765625" text="Ngày hẹn trả" />
-                  <TableColumn prefWidth="119.99997558593748" text="Xác nhận" fx:id="actionColumn"/>
+                  <TableColumn fx:id="idBorrowerColumn" prefWidth="152.0" text="ID người mượn" />
+                  <TableColumn fx:id="borrowDateColumn" prefWidth="181.60000610351562" text="Ngày mượn" />
+                  <TableColumn fx:id="returnDateColumn" prefWidth="216.79998779296875" text="Ngày hẹn trả" />
+                  <TableColumn fx:id="actionColumn" prefWidth="78.4000244140625" text="Xác nhận" />
                </columns>
             </TableView>
             <Button layoutX="353.0" layoutY="143.0" mnemonicParsing="false" onAction="#searchCards" style="-fx-background-color: #0000FF;" text="Tra cứu" />

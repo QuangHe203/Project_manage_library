@@ -10,7 +10,7 @@ public class Book {
     private String genre;   // Thể loại
     private String status;  //Tình trạng
     private String location;    //Vị trí
-    private Double price; // Giá sách
+    private double price; // Giá sách
 
     public Book() {
 
