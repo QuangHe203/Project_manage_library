@@ -32,6 +32,11 @@ public class App extends Application {
         }
     }
 
+    public static void removeCard(Card card) {
+        // Xóa thẻ đã chọn từ danh sách (giả sử bạn có một danh sách chứa các thẻ)
+        cards.remove(card);
+    }
+    
     public static void loadBooksFromDatabase() {
         try {
             books.addAll(BookDAO.getAllBooks());

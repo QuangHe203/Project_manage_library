@@ -3,7 +3,6 @@ package FileJava;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -36,12 +35,15 @@ public class GiveBackDialogController {
 
     @FXML
     private ListView<Book> listBook;
+    @FXML
+    private Card selectedCard;
 
     public void setSelectedCardData(Card selectedCard) {
         idBorrowerLabel.setText(selectedCard.getBorrowerId());
         idCardLabel.setText(selectedCard.getCardId());
         borrowDateLabel.setText(selectedCard.getBorrowDate().toString());
         returnDateLabel.setText(selectedCard.getReturnDate().toString());
+        this.selectedCard = selectedCard;
 
         // Tính phí trễ và phí mất sách
         double lateFee = calculateLateFee(selectedCard);
@@ -110,4 +112,7 @@ public class GiveBackDialogController {
     private List<Book> getBookList(Card selectedCard) {
         return selectedCard.getBorrowedBooks();
     }
+
+    
+
 }

@@ -49,7 +49,7 @@
       </AnchorPane>
    </content>
    <buttonTypes>
-      <ButtonType fx:constant="FINISH" />
+      <ButtonType fx:constant="FINISH" fx:id="finishButton"/>
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
 </DialogPane>
