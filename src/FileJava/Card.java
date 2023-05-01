@@ -17,13 +17,21 @@ public class Card {
 
     }
 
-    public Card(String cardId, String borrowerId, LocalDate borrowDate, LocalDate returnDate, List<Book> borrowedBooks) {
+    public Card(String cardId, String borrowerId, LocalDate borrowDate, LocalDate returnDate, ObservableList<Book> borrowedBooks) {
         this.cardId = cardId;
         this.borrowerId = borrowerId;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
         this.borrowedBooks = FXCollections.observableArrayList(borrowedBooks);
     }
+
+    public Card(String cardId, String borrowerId, LocalDate borrowDate, LocalDate returnDate) {
+        this.cardId = cardId;
+        this.borrowerId = borrowerId;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
+    }
+   
 
     public String getCardId() {
         return cardId;

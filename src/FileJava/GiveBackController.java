@@ -2,9 +2,12 @@ package FileJava;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import Database.CardDAO;
 import javafx.fxml.Initializable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -130,6 +133,16 @@ public class GiveBackController extends BaseController implements Initializable 
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.FINISH) {
                 App.cards.remove(selectedCard);
+                try {
+                    CardDAO.deleteCard(selectedCard);
+                } catch (SQLException e) {
+                    Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
+                    errorAlert.setTitle("Lỗi xóa sách");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.showAndWait();
+                    e.printStackTrace();
+                    return;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

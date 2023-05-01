@@ -1,9 +1,11 @@
 package FileJava;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import Database.CardDAO;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -39,6 +41,8 @@ public class CardController extends BaseController {
     @FXML private TableColumn<Book, Void> deleteColumn;
 
     private ObservableList<Book> borrowedBooks;
+    String cardId = IdGenerator.generateNextCardId();
+        
     private Set<String> bookIds = new HashSet<>();
 
     public void initialize() {
@@ -86,7 +90,8 @@ public class CardController extends BaseController {
                 checkBorrowerId();
             }
         });
-        
+        cardIdTextField.setEditable(false);
+        cardIdTextField.setText(cardId);
         booksTableView.setItems(borrowedBooks);
     }
 
@@ -158,9 +163,7 @@ public class CardController extends BaseController {
     @FXML
     public void createBorrowCard() {
         // Lấy thông tin từ các trường nhập liệu
-        String cardId = IdGenerator.generateNextCardId();
-        borrowerIdTextField.setEditable(false);
-        cardIdTextField.setText(cardId);
+        
         String borrowerId = borrowerIdTextField.getText();
         LocalDate borrowDate = borrowDateDatePicker.getValue();
         LocalDate returnDate = returnDateDatePicker.getValue();
@@ -177,6 +180,15 @@ public class CardController extends BaseController {
         // Tạo đối tượng BorrowCard với thông tin đã lấy
         Card newCard = new Card(cardId, borrowerId, borrowDate, returnDate, borrowedBooks);
 
+        try {
+            CardDAO.addCard(newCard);
+        } catch (SQLException ex) {
+            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu sách mới, vui lòng thử lại", ButtonType.OK);
+            alert.setTitle("Lỗi cơ sở dữ liệu");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
         App.cards.add(newCard);
 
         //Gắn ngày mượn gần nhất của người mượn sách với ngày tạo thẻ sách
@@ -203,7 +215,8 @@ public class CardController extends BaseController {
         // Làm mới danh sách sách đã mượn và HashSet chứa ID sách
         borrowedBooks.clear();
         bookIds.clear();
-        borrowedBooks.add(new Book());
+        IdGenerator.updateNumberCard();
+        updateCardId();
 
         //Thông báo thành công
         Alert alert2 = new Alert(AlertType.INFORMATION, "Tạo thẻ mượn sách thành công", ButtonType.OK);
@@ -211,5 +224,10 @@ public class CardController extends BaseController {
         alert2.setHeaderText(null);
         alert2.showAndWait();
         return;
+    }
+    // Thêm phương thức updateCardId() để sinh mã thẻ mượn sách mới
+    private void updateCardId() {
+        cardId = IdGenerator.generateNextCardId(); // Tạo mã thẻ mượn sách mới
+        cardIdTextField.setText(cardId); // Đặt giá trị mới cho cardIdTextField
     }
 }
