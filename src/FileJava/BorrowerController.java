@@ -1,6 +1,7 @@
 package FileJava;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -223,10 +224,9 @@ public class BorrowerController extends BaseController implements Initializable 
 
         Borrower newBorrower = new Borrower(id, fullName, phoneNumber, dateOfBirth, email, type);
         App.borrowers.add(newBorrower);
-        //Thêm sách vào cơ sở dũ liệu
-        /*
+        // Thêm sách vào cơ sở dũ liệu
         try {
-            Borrower.addBorrower(newBorrower);
+            BorrowerDAO.addBorrower(newBorrower); // Corrected method name
         } catch (SQLException ex) {
             Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu sách mới, vui lòng thử lại", ButtonType.OK);
             alert.setTitle("Lỗi cơ sở dữ liệu");
@@ -234,7 +234,6 @@ public class BorrowerController extends BaseController implements Initializable 
             alert.showAndWait();
             return;
         }
-        */
 
         // Refresh các trường thông tin
         idTextField.setText("");
@@ -244,7 +243,8 @@ public class BorrowerController extends BaseController implements Initializable 
         dateOfBirthTextField.setValue(null);
         emailTextField.setText("");
         typeComboBox.setValue(null);
-        //Đặt lại hành động của nút
+        IdGenerator.updateNumberBorrower();
+        // Đặt lại hành động của nút
         addBorrowerButton.setText("Thêm");
         addBorrowerButton.setOnAction(this::addBorrower);
 
@@ -270,25 +270,25 @@ public class BorrowerController extends BaseController implements Initializable 
             return;
         }
 
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa người mượn này không?",ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa người mượn này không?",
+                ButtonType.YES, ButtonType.NO);
         alert.setTitle("Xác nhận xóa");
         alert.setHeaderText(null);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            //Xóa sách khỏi cơ sở dữ liệu
-            /*
-             try {
+
+            try {
                 BorrowerDAO.deleteBorrower(selectedBorrower);
-             } catch (SQLException e) {
-                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
+            } catch (SQLException e) {
+                Alert errorAlert = new Alert(AlertType.ERROR,
+                        "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
                 errorAlert.setTitle("Lỗi xóa sách");
                 errorAlert.setHeaderText(null);
                 errorAlert.showAndWait();
                 e.printStackTrace();
-                return;  
-             }
-             */
+                return;
+            }
             // Xóa người mượn khỏi cơ sở dữ liệu
             App.borrowers.remove(selectedBorrower);
 
