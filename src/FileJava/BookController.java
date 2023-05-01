@@ -266,6 +266,7 @@ public class BookController extends BaseController implements Initializable {
         locationTextField.setText("");
         genreComboBox.setValue(null);
         priceTextField.setText("");
+        IdGenerator.updateNumberBook();
         // Đặt lại hành động của nút 
         addButton.setText("Thêm");
         addButton.setOnAction(this::addBook);
