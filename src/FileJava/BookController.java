@@ -112,9 +112,12 @@ public class BookController extends BaseController implements Initializable {
         String author = authorTextField.getText();
         String publisher = publisherTextField.getText();
         String genre = genreComboBox.getValue();
-        Integer publishYear = !publicationYearTextField.getText().isEmpty() ? Integer.parseInt(publicationYearTextField.getText()) : null;
+        Integer publishYear = !publicationYearTextField.getText().isEmpty()
+                ? Integer.parseInt(publicationYearTextField.getText())
+                : null;
 
-        ObservableList<Book> searchedBooks = FXCollections.observableList(searchBooks(id, title, author, publisher, genre, publishYear));
+        ObservableList<Book> searchedBooks = FXCollections
+                .observableList(searchBooks(id, title, author, publisher, genre, publishYear));
 
         // Hiển thị sách đã được tìm kiếm lên tableview
         bookList.clear();
@@ -247,6 +250,11 @@ public class BookController extends BaseController implements Initializable {
         // Thêm sách vào cơ sở dữ liệu
         try {
             BookDAO.addBook(newBook);
+            App.books.add(newBook);
+            Alert alert = new Alert(AlertType.INFORMATION, "Đã thêm sách thành công!", ButtonType.OK);
+            alert.setTitle("Thành công");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         } catch (SQLException ex) {
             Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu sách mới, vui lòng thử lại", ButtonType.OK);
             alert.setTitle("Lỗi cơ sở dữ liệu");
@@ -267,7 +275,7 @@ public class BookController extends BaseController implements Initializable {
         genreComboBox.setValue(null);
         priceTextField.setText("");
         IdGenerator.updateNumberBook();
-        // Đặt lại hành động của nút 
+        // Đặt lại hành động của nút
         addButton.setText("Thêm");
         addButton.setOnAction(this::addBook);
     }
@@ -284,7 +292,8 @@ public class BookController extends BaseController implements Initializable {
             return;
         }
 
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa sách này không?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Bạn có chắc chắn muốn xóa sách này không?", ButtonType.YES,
+                ButtonType.NO);
         alert.setTitle("Xác nhận xóa");
         alert.setHeaderText(null);
         alert.showAndWait();
@@ -294,7 +303,8 @@ public class BookController extends BaseController implements Initializable {
             try {
                 BookDAO.deleteBook(selectedBook);
             } catch (SQLException e) {
-                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
+                Alert errorAlert = new Alert(AlertType.ERROR, "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.",
+                        ButtonType.OK);
                 errorAlert.setTitle("Lỗi xóa sách");
                 errorAlert.setHeaderText(null);
                 errorAlert.showAndWait();

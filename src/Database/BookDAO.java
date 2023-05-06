@@ -30,10 +30,11 @@ public class BookDAO {
 
         return books;
     }
-// Phương thức thêm sách trong sql
+
+    // Phương thức thêm sách trong sql
     public static void addBook(Book book) throws SQLException {
         String sql = "INSERT INTO books (id, title, author, publisher, publicationYear, quantity, genre, status, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
+
         try (Connection conn = MySQLConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, book.getId());
@@ -45,12 +46,12 @@ public class BookDAO {
             stmt.setString(7, book.getGenre());
             stmt.setString(8, book.getStatus());
             stmt.setString(9, book.getLocation());
-    
+
             stmt.executeUpdate();
         }
     }
-    
-// Phương thức xóa sách trong sql
+
+    // Phương thức xóa sách trong sql
     public static void deleteBook(Book book) throws SQLException {
         // xóa sách khỏi cơ sở dữ liệu
         String sql = "DELETE FROM books WHERE id = ?";
@@ -65,19 +66,21 @@ public class BookDAO {
     }
 
     // Phương thức tìm kiếm sách theo các tiêu chí
-    public static List<Book> searchBooks(String id, String title, String author, String publisher, String genre, Integer publishYear) throws SQLException {
+    public static List<Book> searchBooks(String id, String title, String author, String publisher, String genre,
+            Integer publishYear) throws SQLException {
         List<Book> result = new ArrayList<>();
-    
+
         String sql = "SELECT * FROM books WHERE id LIKE ? AND title LIKE ? AND author LIKE ? AND publisher LIKE ? AND genre LIKE ? ";
-        List<Object> params = new ArrayList<>(Arrays.asList("%" + id + "%", "%" + title + "%", "%" + author + "%", "%" + publisher + "%", "%" + genre + "%"));
-    
+        List<Object> params = new ArrayList<>(Arrays.asList("%" + id + "%", "%" + title + "%", "%" + author + "%",
+                "%" + publisher + "%", "%" + genre + "%"));
+
         if (publishYear != null) {
             sql += "AND publicationYear = ?";
             params.add(publishYear);
         }
-    
+
         try (Connection conn = MySQLConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             int index = 1;
             for (Object param : params) {
                 stmt.setObject(index++, param);
@@ -90,13 +93,14 @@ public class BookDAO {
                 result.add(book);
             }
         }
-    
+
         return result;
     }
-// Phương thức chỉnh sửa sách
+
+    // Phương thức chỉnh sửa sách
     public static void updateBook(Book book) throws SQLException {
         String sql = "UPDATE books SET title = ?, author = ?, publisher = ?, publicationYear = ?, quantity = ?, genre = ?, status = ?, location = ? WHERE id = ?";
-    
+
         try (Connection conn = MySQLConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, book.getTitle());
@@ -108,9 +112,9 @@ public class BookDAO {
             stmt.setString(7, book.getStatus());
             stmt.setString(8, book.getLocation());
             stmt.setString(9, book.getId());
-    
+
             stmt.executeUpdate();
         }
     }
-    
+
 }
