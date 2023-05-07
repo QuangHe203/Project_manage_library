@@ -1,6 +1,9 @@
 package FileJava;
 
 import Database.BookDAO;
+import Database.BorrowerDAO;
+import Database.CardDAO;
+
 import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -27,7 +30,7 @@ public class App extends Application {
             stage.setTitle("Manage library app");
             stage.setScene(scene1);
             stage.show();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -36,10 +39,26 @@ public class App extends Application {
         // Xóa thẻ đã chọn từ danh sách (giả sử bạn có một danh sách chứa các thẻ)
         cards.remove(card);
     }
-    
+
     public static void loadBooksFromDatabase() {
         try {
             books.addAll(BookDAO.getAllBooks());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadBorrowsFromDatabase() {
+        try {
+            borrowers.addAll(BorrowerDAO.getAllBorrowers());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadCardsFromDatabase() {
+        try {
+            cards.addAll(CardDAO.getAllCards());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -50,7 +69,8 @@ public class App extends Application {
         books.addAll(BookData.generateBooks());
         cards.addAll(CardData.generateCards());
         loadBooksFromDatabase();
+        loadBorrowsFromDatabase();
+        loadCardsFromDatabase();
         launch(args);
     }
 }
-

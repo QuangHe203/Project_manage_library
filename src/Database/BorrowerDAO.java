@@ -24,9 +24,9 @@ public class BorrowerDAO {
             while (rs.next()) {
                 Borrower borrower = new Borrower(
                         rs.getString("id"),
-                        rs.getString("full_name"),
-                        rs.getString("phone_number"),
-                        rs.getDate("date_of_birth").toLocalDate(),
+                        rs.getString("fullName"),
+                        rs.getString("phoneNumber"),
+                        rs.getDate("dateOfBirth").toLocalDate(),
                         rs.getString("email"),
                         rs.getString("type"));
                 borrowers.add(borrower);
