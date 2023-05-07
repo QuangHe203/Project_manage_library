@@ -37,7 +37,7 @@ public class BorrowerDAO {
 
     // Phương thức thêm người mượn vào cơ sở dữ liệu
     public static void addBorrower(Borrower borrower) throws SQLException {
-        String sql = "INSERT INTO borrowers (id, fullName, phoneNumber, date_of_birth,  email,  type) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO borrowers (id, fullName, phoneNumber, dateOfBirth,  email,  type) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = MySQLConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -103,7 +103,7 @@ public class BorrowerDAO {
 
     // Phương thức chỉnh sửa thông tin người mượn
     public static void updateBorrower(Borrower borrower) throws SQLException {
-        String sql = "UPDATE borrowers SET fullName = ?, phoneNumber = ?, date_of_birth = ?, email = ?, type = ? WHERE id = ?";
+        String sql = "UPDATE borrowers SET fullName = ?, phoneNumber = ?, dateOfBirth = ?, email = ?, type = ? WHERE id = ?";
 
         try (Connection conn = MySQLConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {

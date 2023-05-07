@@ -208,10 +208,11 @@ public class BookController extends BaseController implements Initializable {
         }
     }
 
+    // Chức năng thêm sách
+
     @FXML
     private Button addButton;
 
-    // Chức năng thêm sách
     @FXML
     void addBook(ActionEvent event) {
         String id = IdGenerator.generateNextBookId();

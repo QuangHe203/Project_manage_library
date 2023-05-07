@@ -164,7 +164,7 @@ public class BorrowerController extends BaseController implements Initializable 
             tableView.refresh();
 
             // hiển thị thông báo cho người dùng biết cập nhật thành công
-            Alert alert = new Alert(AlertType.INFORMATION, "Đã cập nhật sách thành công!", ButtonType.OK);
+            Alert alert = new Alert(AlertType.INFORMATION, "Đã cập nhật người nhận thành công!", ButtonType.OK);
             alert.setTitle("Thành công");
             alert.setHeaderText(null);
             alert.showAndWait();
@@ -183,7 +183,7 @@ public class BorrowerController extends BaseController implements Initializable 
             typeComboBox.setValue(null);
         } catch (Exception ex) {
             // nếu thất bại, hiển thị thông báo lỗi cho người dùng
-            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi cập nhật sách. Vui lòng thử lại!", ButtonType.OK);
+            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi cập nhật người nhận. Vui lòng thử lại!", ButtonType.OK);
             alert.setTitle("Lỗi");
             alert.setHeaderText(null);
             alert.showAndWait();
@@ -223,12 +223,16 @@ public class BorrowerController extends BaseController implements Initializable 
         }
 
         Borrower newBorrower = new Borrower(id, fullName, phoneNumber, dateOfBirth, email, type);
-        App.borrowers.add(newBorrower);
         // Thêm sách vào cơ sở dũ liệu
         try {
-            BorrowerDAO.addBorrower(newBorrower); // Corrected method name
+            BorrowerDAO.addBorrower(newBorrower);
+            App.borrowers.add(newBorrower);
+            Alert alert = new Alert(AlertType.INFORMATION, "Đã thêm thông tin người mượn thành công!", ButtonType.OK);
+            alert.setTitle("Thành công");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         } catch (SQLException ex) {
-            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu sách mới, vui lòng thử lại", ButtonType.OK);
+            Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu người mượn mới, vui lòng thử lại", ButtonType.OK);
             alert.setTitle("Lỗi cơ sở dữ liệu");
             alert.setHeaderText(null);
             alert.showAndWait();
@@ -247,15 +251,9 @@ public class BorrowerController extends BaseController implements Initializable 
         // Đặt lại hành động của nút
         addBorrowerButton.setText("Thêm");
         addBorrowerButton.setOnAction(this::addBorrower);
-
-        // Thông báo thành công
-        Alert alert2 = new Alert(AlertType.INFORMATION, "Tạo thẻ mượn sách thành công", ButtonType.OK);
-        alert2.setTitle("Tạo thẻ mượn sách thành công");
-        alert2.setHeaderText(null);
-        alert2.showAndWait();
-        return;
     }
 
+    // Xóa người mượn
     @FXML
     private Button deleteBorrowerButton;
 
@@ -298,5 +296,14 @@ public class BorrowerController extends BaseController implements Initializable 
             successAlert.setHeaderText(null);
             successAlert.showAndWait();
         }
+        // Refresh các trường thông tin
+        idTextField.setText("");
+        idTextField.setEditable(true);
+        fullNameTextField.setText("");
+        phoneNumberTextField.setText("");
+        dateOfBirthTextField.setValue(null);
+        emailTextField.setText("");
+        typeComboBox.setValue(null);
+        IdGenerator.updateNumberBorrower();
     }
 }
