@@ -62,7 +62,7 @@ public class BookController extends BaseController implements Initializable {
         tableView.setItems(App.books);
 
         genreComboBox.getItems().addAll("Sách", "Sách tự giúp", "Tiểu thuyết", "Truyện cổ tích", "Truyện ngắn",
-                "Truyện thiếu nhi", "Truyện tranh", "Văn học cổ điển");
+                "Truyện thiếu nhi", "Truyện tranh", "Văn học cổ điển","");
         genreComboBox.setValue("Văn học cổ điển");
         bookList = FXCollections.observableArrayList();
     }

@@ -61,7 +61,7 @@ public class BorrowerController extends BaseController implements Initializable 
         // Khởi tạo giá trị cho tableView
         tableView.setItems(App.borrowers);
 
-        typeComboBox.getItems().addAll("Sinh viên", "Giáo viên", "Nhân viên");
+        typeComboBox.getItems().addAll("Sinh viên", "Giáo viên", "Nhân viên","");
         typeComboBox.setValue("Sinh viên");
         borrowerList = FXCollections.observableArrayList();
     }
