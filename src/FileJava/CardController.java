@@ -23,37 +23,54 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 
 public class CardController extends BaseController {
+    @FXML
+    private TextField cardIdTextField;
+    @FXML
+    private TextField borrowerIdTextField;
+    @FXML
+    private TextField bookIdTextField;
+    @FXML
+    private DatePicker borrowDateDatePicker;
+    @FXML
+    private DatePicker returnDateDatePicker;
+    // Tạo tableview
 
-    @FXML private TextField cardIdTextField;
-    @FXML private TextField borrowerIdTextField;
-    @FXML private TextField bookIdTextField;
-    @FXML private DatePicker borrowDateDatePicker;
-    @FXML private DatePicker returnDateDatePicker;
-
-    @FXML private TableView<Book> booksTableView;
-    @FXML private TableColumn<Book, Integer> indexColumn;
-    @FXML private TableColumn<Book, String> bookIdColumn;
-    @FXML private TableColumn<Book, String> titleColumn;
-    @FXML private TableColumn<Book, String> authorColumn;
-    @FXML private TableColumn<Book, String> publisherColumn;
-    @FXML private TableColumn<Book, Integer> publicationYearColumn;
-    @FXML private TableColumn<Book, String> genreColumn;
-    @FXML private TableColumn<Book, Void> deleteColumn;
+    @FXML
+    private TableView<Book> booksTableView;
+    @FXML
+    private TableColumn<Book, Integer> indexColumn;
+    @FXML
+    private TableColumn<Book, String> bookIdColumn;
+    @FXML
+    private TableColumn<Book, String> titleColumn;
+    @FXML
+    private TableColumn<Book, String> authorColumn;
+    @FXML
+    private TableColumn<Book, String> publisherColumn;
+    @FXML
+    private TableColumn<Book, Integer> publicationYearColumn;
+    @FXML
+    private TableColumn<Book, String> genreColumn;
+    @FXML
+    private TableColumn<Book, Void> deleteColumn;
 
     private ObservableList<Book> borrowedBooks;
     String cardId = IdGenerator.generateNextCardId();
-        
+
     private Set<String> bookIds = new HashSet<>();
 
     public void initialize() {
         borrowedBooks = FXCollections.observableArrayList();
 
-        indexColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(booksTableView.getItems().indexOf(cellData.getValue()) + 1).asObject());
+        indexColumn.setCellValueFactory(
+                cellData -> new SimpleIntegerProperty(booksTableView.getItems().indexOf(cellData.getValue()) + 1)
+                        .asObject());
         bookIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         titleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
         authorColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuthor()));
         publisherColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPublisher()));
-        publicationYearColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPublicationYear()).asObject());
+        publicationYearColumn.setCellValueFactory(
+                cellData -> new SimpleIntegerProperty(cellData.getValue().getPublicationYear()).asObject());
         genreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenre()));
 
         deleteColumn.setCellFactory(param -> new TableCell<Book, Void>() {
@@ -64,6 +81,7 @@ public class CardController extends BaseController {
                     Book bookToDelete = getTableView().getItems().get(getIndex());
                     removeBookFromBorrowList(bookToDelete);
                     bookIds.remove(bookToDelete.getId()); // Xóa ID sách khỏi tập hợp khi sách bị xóa khỏi danh sách mượn
+                    getTableView().getItems().remove(bookToDelete); // Xóa hàng từ bảng
                 });
             }
         
@@ -79,13 +97,14 @@ public class CardController extends BaseController {
             }
         });
         
+
         bookIdTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 addBookToBorrowList();
             }
         });
 
-        borrowerIdTextField.setOnKeyPressed(event ->{
+        borrowerIdTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 checkBorrowerId();
             }
@@ -100,11 +119,12 @@ public class CardController extends BaseController {
         if (!borowerId.isEmpty()) {
             Borrower borrower = findBorrowerById(borowerId);
             if (borrower == null) {
-                 // Hiển thị thông báo nếu không tìm người mượn tương ứng
-                 Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy người mượn có ID tương ứng", ButtonType.OK);
-                 alert.setTitle("Không tìm thấy");
-                 alert.setHeaderText(null);
-                 alert.showAndWait();
+                // Hiển thị thông báo nếu không tìm người mượn tương ứng
+                Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy người mượn có ID tương ứng",
+                        ButtonType.OK);
+                alert.setTitle("Không tìm thấy");
+                alert.setHeaderText(null);
+                alert.showAndWait();
             }
         }
     }
@@ -117,6 +137,7 @@ public class CardController extends BaseController {
         }
         return null;
     }
+
     public Book findBookById(String id) {
         for (Book book : App.books) {
             if (book.getId().equals(id)) {
@@ -153,7 +174,6 @@ public class CardController extends BaseController {
             }
         }
     }
-    
 
     @FXML
     public void removeBookFromBorrowList(Book book) {
@@ -163,7 +183,7 @@ public class CardController extends BaseController {
     @FXML
     public void createBorrowCard() {
         // Lấy thông tin từ các trường nhập liệu
-        
+
         String borrowerId = borrowerIdTextField.getText();
         LocalDate borrowDate = borrowDateDatePicker.getValue();
         LocalDate returnDate = returnDateDatePicker.getValue();
@@ -182,6 +202,11 @@ public class CardController extends BaseController {
 
         try {
             CardDAO.addCard(newCard);
+            App.cards.add(newCard);
+            Alert alert = new Alert(AlertType.INFORMATION, "Đã thêm sách thành công!", ButtonType.OK);
+            alert.setTitle("Thành công");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         } catch (SQLException ex) {
             Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu sách mới, vui lòng thử lại", ButtonType.OK);
             alert.setTitle("Lỗi cơ sở dữ liệu");
@@ -189,16 +214,13 @@ public class CardController extends BaseController {
             alert.showAndWait();
             return;
         }
-        App.cards.add(newCard);
-
-        //Gắn ngày mượn gần nhất của người mượn sách với ngày tạo thẻ sách
+        // Gắn ngày mượn gần nhất của người mượn sách với ngày tạo thẻ sách
         for (Borrower borrower : App.borrowers) {
             if (borrower.getId().equals(borrowerId)) {
                 borrower.setLast(borrowDate);
             }
         }
 
-        
         // Loại bỏ sách đã mượn khỏi danh sách sách có sẵn
         for (Book borrowedBook : borrowedBooks) {
             App.books.remove(borrowedBook);
@@ -218,13 +240,8 @@ public class CardController extends BaseController {
         IdGenerator.updateNumberCard();
         updateCardId();
 
-        //Thông báo thành công
-        Alert alert2 = new Alert(AlertType.INFORMATION, "Tạo thẻ mượn sách thành công", ButtonType.OK);
-        alert2.setTitle("Tạo thẻ mượn sách thành công");
-        alert2.setHeaderText(null);
-        alert2.showAndWait();
-        return;
     }
+
     // Thêm phương thức updateCardId() để sinh mã thẻ mượn sách mới
     private void updateCardId() {
         cardId = IdGenerator.generateNextCardId(); // Tạo mã thẻ mượn sách mới
