@@ -221,7 +221,7 @@ public class BorrowerController extends BaseController implements Initializable 
             alert1.showAndWait();
             return;
         }
-
+        
         Borrower newBorrower = new Borrower(id, fullName, phoneNumber, dateOfBirth, email, type);
         // Thêm sách vào cơ sở dũ liệu
         try {
@@ -247,7 +247,6 @@ public class BorrowerController extends BaseController implements Initializable 
         dateOfBirthTextField.setValue(null);
         emailTextField.setText("");
         typeComboBox.setValue(null);
-        IdGenerator.updateNumberBorrower();
         // Đặt lại hành động của nút
         addBorrowerButton.setText("Thêm");
         addBorrowerButton.setOnAction(this::addBorrower);
@@ -304,6 +303,5 @@ public class BorrowerController extends BaseController implements Initializable 
         dateOfBirthTextField.setValue(null);
         emailTextField.setText("");
         typeComboBox.setValue(null);
-        IdGenerator.updateNumberBorrower();
     }
 }

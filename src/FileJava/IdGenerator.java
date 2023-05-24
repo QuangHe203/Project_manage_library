@@ -1,46 +1,45 @@
 package FileJava;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import Database.MySQLConnection;
+
 public class IdGenerator {
-    private static int bookCounter = 20;
+
+    private static String generateNextId(String tableName, String idColumnName, String prefix) {
+        String generatedId = null;
+        try (Connection conn = MySQLConnection.getConnection()) {
+            String query = "SELECT MAX(" + idColumnName + ") FROM " + tableName;
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                String currentMaxId = rs.getString(1);
+                if (currentMaxId != null) {
+                    String numericPart = currentMaxId.substring(prefix.length());
+                    int nextId = Integer.parseInt(numericPart) + 1;
+                    generatedId = prefix + String.format("%03d", nextId);
+                } else {
+                    generatedId = prefix + "001"; // Giá trị mặc định khi không có dữ liệu
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return generatedId;
+    }
 
     public static String generateNextBookId() {
-        if (bookCounter >= 999) {
-            throw new IllegalStateException("Cannot generate more book IDs.");
-        }
-        String bookId = "Bo" + String.format("%03d", bookCounter);
-        return bookId;
+        return generateNextId("books", "id", "BK");
     }
-    public static void updateNumberBook() {
-        bookCounter++;
-    }
-
-    private static int borrowerCounter = 20;
 
     public static String generateNextBorrowerId() {
-        if (borrowerCounter >= 999) {
-            throw new IllegalStateException("Cannot generate more borrower IDs.");
-        }
-
-        String borrowerID = "Br" + String.format("%03d", borrowerCounter);
-        return borrowerID;
+        return generateNextId("borrowers", "id", "BR");
     }
-
-    public static void updateNumberBorrower() {
-        borrowerCounter++;
-    }
-
-    private static int cardCounter = 3;
 
     public static String generateNextCardId() {
-        if (cardCounter >= 999) {
-            throw new IllegalStateException("Cannot generate more card IDs.");
-        }
-
-        String cardId = "C" + String.format("%03d", cardCounter);
-        return cardId;
-    }
-
-    public static void updateNumberCard() {
-        cardCounter++;
+        return generateNextId("cards", "cardId", "C");
     }
 }

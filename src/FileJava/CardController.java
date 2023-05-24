@@ -237,7 +237,6 @@ public class CardController extends BaseController {
         // Làm mới danh sách sách đã mượn và HashSet chứa ID sách
         borrowedBooks.clear();
         bookIds.clear();
-        IdGenerator.updateNumberCard();
         updateCardId();
 
     }
