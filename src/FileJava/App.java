@@ -65,7 +65,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        cards.addAll(CardData.generateCards());
         loadBooksFromDatabase();
         loadBorrowsFromDatabase();
         loadCardsFromDatabase();
