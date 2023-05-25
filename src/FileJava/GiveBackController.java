@@ -61,7 +61,7 @@ public class GiveBackController extends BaseController implements Initializable 
     }
 
     @FXML
-    private TextField idcardTextField;
+    private TextField idCardTextField;
     @FXML
     private TextField idBorrowerTextField;
     @FXML
@@ -86,7 +86,7 @@ public class GiveBackController extends BaseController implements Initializable 
     @FXML
     void searchCards(ActionEvent event) {
 
-        String idCard = idcardTextField.getText();
+        String idCard = idCardTextField.getText();
         String idBorrower = idBorrowerTextField.getText();
         LocalDate borrowDate = borrowDateTextField.getValue();
         LocalDate returnDate = returnDateTextField.getValue();

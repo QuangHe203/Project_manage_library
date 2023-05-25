@@ -279,8 +279,8 @@ public class BorrowerController extends BaseController implements Initializable 
                 BorrowerDAO.deleteBorrower(selectedBorrower);
             } catch (SQLException e) {
                 Alert errorAlert = new Alert(AlertType.ERROR,
-                        "Đã xảy ra lỗi khi xóa sách khỏi cơ sở dữ liệu.", ButtonType.OK);
-                errorAlert.setTitle("Lỗi xóa sách");
+                        "Đã xảy ra lỗi khi xóa người mượn khỏi cơ sở dữ liệu.", ButtonType.OK);
+                errorAlert.setTitle("Lỗi xóa người mượn");
                 errorAlert.setHeaderText(null);
                 errorAlert.showAndWait();
                 e.printStackTrace();

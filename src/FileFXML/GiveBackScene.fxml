@@ -69,7 +69,7 @@
       </VBox>
       <AnchorPane prefHeight="62.0" prefWidth="906.0">
          <children>
-            <Label layoutX="13.0" layoutY="-4.0" prefHeight="71.0" prefWidth="876.0" style="-fx-background-color: #ffffff;" text="Quản lí trả sách">
+            <Label layoutX="13.0" layoutY="-4.0" prefHeight="71.0" prefWidth="876.0" style="-fx-background-color: #ffffff;" text="Quản lý trả sách">
                <font>
                   <Font name="System Bold" size="31.0" />
                </font>
